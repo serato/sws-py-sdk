@@ -1,5 +1,4 @@
 """ This is the base class for the Web Service definitions -- includes common functions
-    @TODO Add docstrings
 """
 
 from requests import Request, HTTPError, Session
@@ -18,7 +17,8 @@ class Service(object):
     def fetch(self,
     auth,
     endpoint,
-    body,
+    body={},
+    params={},
     method='GET',
     timeout=None,
     headers={'Accept': 'application/json',
@@ -47,6 +47,7 @@ class Service(object):
             endpoint=('' if self.service_uri.find('://') != -1 else 'https://') + self.service_uri + endpoint,
             body=body, 
             method=method,
+            params=params,
             timeout=timeout,
             headers=headers)
         
@@ -78,7 +79,7 @@ class Service(object):
                 else:
                     return err
 
-    def build_request(self, auth, endpoint, body, method, timeout, headers):
+    def build_request(self, auth, endpoint, body, params, method, timeout, headers):
         """ Build up the request object.
             auth : object | string
                 Will either contain a configured form of authentication - like the well supported
@@ -100,14 +101,15 @@ class Service(object):
         # Build up Request
         # timeout=timeout
         request = Request(method=method, url=endpoint, headers=headers)
-        # if auth is not None: Probably not needed, since there is a separate auth arg
-        #     request.headers['Authorization'] = auth
+
         if (auth is 'bearer'):
             request = self.sws.bearer_auth(request)
 
-        if method is 'GET':
+        if method is 'GET' or method is 'DELETE':
             request.params = body
 
         if method is 'PUT' or method is 'PATCH' or method is 'POST':
             request.data = body
+            if params != {}:
+                request.params = params
         return request

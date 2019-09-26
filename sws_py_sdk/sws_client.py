@@ -6,7 +6,7 @@ from .sws import Sws
 """
 class SwsClient(Sws):
 
-    def __init__(self, app_id, secret=None, user_id=None, timeout=3000, service_uri={}, auto_refresh=True):
+    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, auto_refresh=True):
         """
         Here we set up a mechanism for token refresh to be handled and triggered
         Create SWS object
