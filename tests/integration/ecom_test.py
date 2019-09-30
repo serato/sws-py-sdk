@@ -158,3 +158,48 @@ def test_add_me_plan_change_request(me_endpoint_sws_client):
     )
     assert error_response.response.status_code != 404
     assert error_response.response.status_code != 500
+
+def test_add_user_payment_method(user_endpoint_sws_client):
+    nonce = "Uvuvwevwe_Onyetenyevwe_Ugwembubwem_Ossas"
+    device_data = "Uvuvwevwes Macbook Pro"
+    billing_address_id = "uv"
+    error_response = user_endpoint_sws_client.ecom().add_payment_method(
+        nonce=nonce,
+        device_data=device_data,
+        billing_address_id=billing_address_id
+    )
+    assert error_response.response.status_code != 500
+    assert error_response.response.status_code != 404
+
+def test_add_me_payment_method(me_endpoint_sws_client):
+    nonce = "Uvuvwevwe_Onyetenyevwe_Ugwembubwem_Ossas"
+    device_data = "Uvuvwevwes Macbook Pro"
+    billing_address_id = "uv"
+    error_response = me_endpoint_sws_client.ecom().add_payment_method(
+        nonce=nonce,
+        device_data=device_data,
+        billing_address_id=billing_address_id
+    )
+    assert error_response.response.status_code != 500
+    assert error_response.response.status_code != 404
+
+def test_update_user_plan_change(user_endpoint_sws_client):
+    subscription_id = "subsid"
+    plan_change_id = "1000"
+    error_response = user_endpoint_sws_client.ecom().update_plan_change(
+        subscription_id=subscription_id,
+        plan_change_id=plan_change_id
+    )
+    assert error_response.response.status_code != 500
+    assert error_response.response.status_code != 404
+
+
+def test_update_me_plan_change(me_endpoint_sws_client):
+    subscription_id = "subsid"
+    plan_change_id = "1000"
+    error_response = me_endpoint_sws_client.ecom().update_plan_change(
+        subscription_id=subscription_id,
+        plan_change_id=plan_change_id
+    )
+    assert error_response.response.status_code != 500
+    assert error_response.response.status_code != 404

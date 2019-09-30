@@ -128,14 +128,13 @@ class Ecom(Service):
             plan_change_id: str
                 The ID for the change request
         """
-        endpoint = '/api/v1/me/' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "/subscriptions/" + subscription_id + "/planchanges/" + plan_change_id
         return self.fetch(
             auth="bearer",
             endpoint=endpoint,
             method="PUT"
         )
-        pass
 
     def update_subscription(self, subscription_id, number_of_billing_cycle=None, payment_method_token=None):
         """ Update a subscription owned by the user
