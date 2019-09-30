@@ -19,6 +19,19 @@ def test_get_user_subscriptions(user_endpoint_sws_client):
     assert error_response.response.status_code != 404
     assert error_response.response.status_code != 500
 
+
+def test_get_me_subscriptions_with_sub_id(me_endpoint_sws_client):
+    error_response = me_endpoint_sws_client.ecom().get_subscriptions("notasubscriptionid")
+    assert error_response.response.status_code != 404
+    assert error_response.response.status_code != 500
+
+
+def test_get_user_subscriptions_with_sub_id(user_endpoint_sws_client):
+    error_response = user_endpoint_sws_client.ecom().get_subscriptions("notasubscriptionid")
+    assert error_response.response.status_code != 404
+    assert error_response.response.status_code != 500
+
+
 def test_update_me_subscription(me_endpoint_sws_client):
     subscription_id="subId"
     number_of_billing_cycle = 400

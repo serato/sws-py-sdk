@@ -46,13 +46,15 @@ class Ecom(Service):
             method='POST'
         )
 
-    def get_subscriptions(self):
+    def get_subscriptions(self, subscription_id=''):
         """ Get subscriptions owned by a user
         """
+        endpoint = "/api/v1/me/subscriptions" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id) + "/subscriptions"
+        if subscription_id != '':
+            endpoint += "/" + str(subscription_id)
         return self.fetch(
             auth="bearer",
-            endpoint="/api/v1/me/subscriptions" if self.sws.user_id == 0 else "/api/v1/users/" +
-                str(self.sws.user_id) + "/subscriptions",
+            endpoint=endpoint,
             method="GET"
         )
         
