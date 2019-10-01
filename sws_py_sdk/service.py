@@ -108,10 +108,10 @@ class Service(object):
             request.auth = auth
 
         if method is 'GET' or method is 'DELETE':
-            request.params = params
+            request.params = body
 
-        if method is 'PUT' or method is 'PATCH' or method is 'POST':
-            request.body = body
+        if method == 'PUT' or method == 'PATCH' or method == 'POST':
+            request.data = body
             if params != {}:
                 request.params = params
         return request
