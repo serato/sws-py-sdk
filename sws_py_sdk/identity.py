@@ -35,7 +35,7 @@ class Identity(Service):
                 Human readable name of machine
         """
         return self.fetch(
-            auth=HTTPBasicAuth(self.sws.app_id, self.sws.secret),
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint='/api/v1/login',
             body={
                 'email_address': email_address,
