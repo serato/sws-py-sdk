@@ -2,6 +2,7 @@
 """
 
 from requests import Request, HTTPError, Session
+from requests.auth import HTTPBasicAuth
 from base64 import b64encode
 
 class Service(object):
@@ -98,12 +99,13 @@ class Service(object):
             headers : dict
                 The headers that will be sent in the request
         """
-        # Build up Request
-        # timeout=timeout
+
         request = Request(method=method, url=endpoint, headers=headers)
 
-        if (auth is 'bearer'):
+        if auth is 'bearer':
             request = self.sws.bearer_auth(request)
+        elif isinstance(auth, HTTPBasicAuth):
+            request.auth = auth
 
         if method is 'GET' or method is 'DELETE':
             request.params = body
