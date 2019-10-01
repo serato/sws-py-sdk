@@ -23,7 +23,7 @@ class Identity(Service):
             method='POST'
         )
 
-    def login(self, email_address, password, device_id, device_name):
+    def login(self, email_address, password, device_id='', device_name=''):
         """ Logs user in with Basic auth
             email_address : string
                 User's email address
@@ -35,7 +35,7 @@ class Identity(Service):
                 Human readable name of machine
         """
         return self.fetch(
-            auth=HTTPBasicAuth(self.sws.app_id, self.sws.app_secret),
+            auth=HTTPBasicAuth(self.sws.app_id, self.sws.secret),
             endpoint='/api/v1/login',
             body={
                 'email_address': email_address,
