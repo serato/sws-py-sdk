@@ -1,6 +1,6 @@
 """ This is the base class for the Web Service definitions -- includes common functions
 """
-
+import json
 from requests import Request, HTTPError, Session
 from requests.auth import HTTPBasicAuth
 from base64 import b64encode
@@ -111,7 +111,7 @@ class Service(object):
             request.params = body
 
         if method == 'PUT' or method == 'PATCH' or method == 'POST':
-            request.data = body
+            request.data = json.dumps(body)
             if params != {}:
                 request.params = params
         return request
