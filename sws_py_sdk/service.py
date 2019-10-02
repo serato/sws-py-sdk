@@ -103,7 +103,7 @@ class Service(object):
         request = Request(method=method, url=endpoint, headers=headers)
 
         if auth is 'bearer':
-            request.headers['Authorization'] = "Bearer %s" % self.sws.access_token
+            request.headers['Authorization'] = "Bearer " + self.sws.access_token
         elif isinstance(auth, HTTPBasicAuth):
             request.auth = auth
 
