@@ -19,3 +19,12 @@ def test_login(me_endpoint_sws_client):
     assert json_result['password'] == "Auckland009"
     assert error_response.response.status_code != 404
     assert error_response.response.status_code != 500
+
+def test_create_user(me_endpoint_sws_client):
+    error_response = me_endpoint_sws_client.identity().post_users(
+        email_address="test.useruser@serato.com",
+        password="test_password"
+    )
+
+    assert error_response.response.status_code != 404
+    assert error_response.response.status_code != 500
