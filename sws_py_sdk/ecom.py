@@ -11,7 +11,7 @@ class Ecom(Service):
         super().__init__(sws)
         self.service_uri = sws.service_uris['ecom']
 
-    def add_payment_method(self, nonce, device_data, billing_address_id):
+    def add_payment_method(self, nonce=None, device_data=None, billing_address_id=None):
         """ Add a payment method to the authenticated client user.
             nonce: str
                 One-time-use reference to payment information provided by the user.
