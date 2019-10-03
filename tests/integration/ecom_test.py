@@ -106,6 +106,7 @@ def test_get_me_payment_methods(me_endpoint_sws_client):
     error_response = me_endpoint_sws_client.ecom().get_payment_methods()
 
     assert error_response.response.status_code != 404
+    assert error_response.response.status_code != 405
     assert error_response.response.status_code != 500
 
 

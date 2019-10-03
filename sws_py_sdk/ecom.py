@@ -92,8 +92,9 @@ class Ecom(Service):
     def get_payment_methods(self):
         """ Gets users payment methods
         """
-        endpoint = '/api/v1/me/paymentmethods' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
-        endpoint = endpoint + '/paymentmethods'
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint += '/paymentmethods'
+        
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
