@@ -82,7 +82,7 @@ class Ecom(Service):
         endpoint = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id)
         endpoint = endpoint + "/orders"
         if order_id != 0:
-            endpoint + "/" + str(order_id)
+            endpoint = endpoint + "/" + str(order_id)
         return self.fetch(
             auth="bearer",
             endpoint=endpoint,
