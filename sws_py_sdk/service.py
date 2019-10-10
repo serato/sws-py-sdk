@@ -13,7 +13,7 @@ class Service(object):
         self.sws = sws
         self.service_uri = ''
         self.last_request = None
-        self.invalidAccessTokenHandler = None
+        self.invalid_access_token_handler = None
 
     def fetch(self,
     auth,
