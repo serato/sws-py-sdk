@@ -76,7 +76,7 @@ class Service(object):
                     # Access token is invalid or expired
                     # 403 2001 - Invalid access token
                     # 401 2002 - Expired access token
-                    return self.invalid_access_token_handler(err)
+                    return self.sws.invalid_access_token_handler(err)
                 else:
                     return err
 
