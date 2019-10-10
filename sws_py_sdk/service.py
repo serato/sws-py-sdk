@@ -63,22 +63,16 @@ class Service(object):
         session = Session()
         prepared_request = session.prepare_request(request)
         response = session.send(prepared_request)
-        if response.ok:
-            return response
-        else:
-            try:
-                response.raise_for_status()
-            except HTTPError as err:
-                err.client = self
-                data = err.response.json()
-                if ((err.response.status_code == 403 and data['code'] == 2001)
-                    or (err.response.status_code == 401 and data['code'] == 2002)):
-                    # Access token is invalid or expired
-                    # 403 2001 - Invalid access token
-                    # 401 2002 - Expired access token
-                    return self.sws.invalid_access_token_handler(err)
-                else:
-                    return err
+        if not response.ok:
+            data = response.json()
+            if ((response.status_code == 403 and data['code'] == 2001)
+                or (response.status_code == 401 and data['code'] == 2002)):
+                # Access token is invalid or expired
+                # 403 2001 - Invalid access token
+                # 401 2002 - Expired access token
+                return self.sws.invalid_access_token_handler(response)
+                   
+        return response
 
     def build_request(self, auth, endpoint, body, params, method, timeout, headers):
         """ Build up the request object.
