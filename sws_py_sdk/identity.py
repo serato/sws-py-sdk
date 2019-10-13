@@ -78,3 +78,18 @@ class Identity(Service):
             },
             method='POST'
         )
+    def post_groups(self, group_name):
+        """ Adds the authenticated client user to a user group
+            group_name : str
+                User group name
+        """
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint += '/groups'
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            body={
+                "group_name": group_name
+            },
+            method='POST'
+        )
