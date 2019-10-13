@@ -1,8 +1,8 @@
 """ This is the base class for the Web Service definitions -- includes common functions
-    @TODO Add docstrings
 """
-
+import json
 from requests import Request, HTTPError, Session
+from requests.auth import HTTPBasicAuth
 from base64 import b64encode
 
 class Service(object):
@@ -18,7 +18,8 @@ class Service(object):
     def fetch(self,
     auth,
     endpoint,
-    body,
+    body={},
+    params={},
     method='GET',
     timeout=None,
     headers={'Accept': 'application/json',
@@ -47,6 +48,7 @@ class Service(object):
             endpoint=('' if self.service_uri.find('://') != -1 else 'https://') + self.service_uri + endpoint,
             body=body, 
             method=method,
+            params=params,
             timeout=timeout,
             headers=headers)
         
@@ -74,11 +76,11 @@ class Service(object):
                     # Access token is invalid or expired
                     # 403 2001 - Invalid access token
                     # 401 2002 - Expired access token
-                    return self.invalid_access_token_handler(err)
+                    return self.sws.invalid_access_token_handler(err)
                 else:
                     return err
 
-    def build_request(self, auth, endpoint, body, method, timeout, headers):
+    def build_request(self, auth, endpoint, body, params, method, timeout, headers):
         """ Build up the request object.
             auth : object | string
                 Will either contain a configured form of authentication - like the well supported
@@ -97,17 +99,19 @@ class Service(object):
             headers : dict
                 The headers that will be sent in the request
         """
-        # Build up Request
-        # timeout=timeout
-        request = Request(method=method, url=endpoint, headers=headers)
-        # if auth is not None: Probably not needed, since there is a separate auth arg
-        #     request.headers['Authorization'] = auth
-        if (auth is 'bearer'):
-            request = self.sws.bearer_auth(request)
 
-        if method is 'GET':
+        request = Request(method=method, url=endpoint, headers=headers)
+
+        if auth is 'bearer':
+            request.headers['Authorization'] = "Bearer " + self.sws.access_token
+        elif isinstance(auth, HTTPBasicAuth):
+            request.auth = auth
+
+        if method is 'GET' or method is 'DELETE':
             request.params = body
 
-        if method is 'PUT' or method is 'PATCH' or method is 'POST':
-            request.data = body
+        if method == 'PUT' or method == 'PATCH' or method == 'POST':
+            request.data = json.dumps(body)
+            if params != {}:
+                request.params = params
         return request
