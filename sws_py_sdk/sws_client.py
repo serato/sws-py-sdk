@@ -37,7 +37,10 @@ class SwsClient(Sws):
     """ Python does not support inline functions very well
         So the handle function is defined here
     """
-    def handle_invalid_access_token(self, client):
+    def handle_invalid_access_token(self, err):
+        # `err.client` is the specific client instance that made the inital request
+        # when the `invalid access token` error was received.
+        client = err.client
         # Fetch the `last request` object from the service client
         request = client.last_request
 

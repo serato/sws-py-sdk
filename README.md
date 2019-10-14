@@ -28,7 +28,7 @@ The tests are run with Pytest and assume that you have your local vagrant machin
 Run the tests with:
 
 ```
-pipenv run python -m pytest
+pipenv run pytest
 ```
 
 This will collect all the tests and run them.
