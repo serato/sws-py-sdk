@@ -26,5 +26,22 @@ def test_create_user(me_endpoint_sws_client):
         password="test_password"
     )
 
-    assert response.status_code != 404
-    assert response.status_code != 500
+    assert error_response.response.status_code != 404
+    assert error_response.response.status_code != 500
+
+def test_me_groups(me_endpoint_sws_client):
+    error_response = me_endpoint_sws_client.identity().post_groups(
+        group_name="serato"
+    )
+
+    assert error_response.response.status_code != 404
+    assert error_response.response.status_code != 500
+
+
+def test_user_groups(user_endpoint_sws_client):
+    error_response = user_endpoint_sws_client.identity().post_groups(
+        group_name="serato"
+    )
+
+    assert error_response.response.status_code != 404
+    assert error_response.response.status_code != 500

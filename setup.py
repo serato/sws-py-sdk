@@ -2,7 +2,7 @@ import setuptools
 setuptools.setup(
   name = 'sws-py-sdk',         # How you named your package folder
   packages = ['sws_py_sdk'],   # Choose the same as "name"
-  version = '0.1',      # Start with a small number and increase it with every change you make
+  version = '0.2',      # Start with a small number and increase it with every change you make
   license='MIT',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
   description = 'A Python SDK for managing communication with SWS APIs',   # Give a short description about your library
   author = 'Benjamin Farrelly',
@@ -18,5 +18,9 @@ setuptools.setup(
     'Programming Language :: Python :: 3.7'
   ],
   python_requires='>=3.6',
-  install_requires=['requests']
+  install_requires=[
+    'requests',
+    'requests-mock',
+    'pytest'
+  ]
 )
