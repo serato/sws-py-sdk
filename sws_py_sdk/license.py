@@ -36,7 +36,14 @@ class License(Service):
             }
         )
 
-    def create_license_authorization(self, action, app_name, app_version, host_machine_id, host_machine_name, license_id, system_time):
+    def create_license_authorization(self,
+                                     action,
+                                     app_name,
+                                     app_version,
+                                     host_machine_id,
+                                     host_machine_name,
+                                     license_id,
+                                     system_time):
         """
         Create a new license authorization for a host.
 
@@ -55,7 +62,8 @@ class License(Service):
         """
         return self.fetch(
             method='POST',
-            endpoint='/api/v1/me/licenses/authorizations' if self.sws.user_id == 0 else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations',
+            endpoint='/api/v1/me/licenses/authorizations' if self.sws.user_id == 0
+            else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations',
             auth='bearer',
             headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={
@@ -80,13 +88,20 @@ class License(Service):
         """
         return self.fetch(
             method='POST',
-            endpoint=f'/api/v1/me/licenses/authorizations/{authorization_id}' if self.sws.user_id == 0 else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations/{authorization_id}',
+            endpoint=f'/api/v1/me/licenses/authorizations/{authorization_id}' if self.sws.user_id == 0
+            else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations/{authorization_id}',
             auth='bearer',
             headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={'status_code': status_code}
         )
 
-    def get_products(self, app_name=None, app_version=None, term=None, show_license_activations=None, include_upgraded=None, include_deleted=None):
+    def get_products(self,
+                     app_name=None,
+                     app_version=None,
+                     term=None,
+                     show_license_activations=None,
+                     include_upgraded=None,
+                     include_deleted=None):
         """
         Gets products owned by the user.
 
@@ -121,14 +136,19 @@ class License(Service):
 
         :param str host_machine_id: Host physical machine id. Required when `product_type_id` is trial product.
         :param int product_type_id: Product type id. One of `product_type_id` or `product_serial_number` is required.
-        :param str product_serial_number: Product serial number. One of `product_type_id` or `product_serial_number` is required.
+        :param str product_serial_number: Product serial number. One of `product_type_id` or `product_serial_number` is
+                                          required.
         :return: Information on product added.
         :rtype: requests.Response
         """
         return self.fetch(
             endpoint='/api/v1/me/products' if self.sws.user_id == 0 else f'/api/v1/users/{self.sws.user_id}/products',
             auth='bearer',
-            body={'host_machine_id': host_machine_id, 'product_type_id': product_type_id, 'product_serial_number': product_serial_number}
+            body={
+                'host_machine_id': host_machine_id,
+                'product_type_id': product_type_id,
+                'product_serial_number': product_serial_number
+            }
         )
 
     def update_product(self, product_id, ilok_user_id):
@@ -141,7 +161,8 @@ class License(Service):
         :rtype: requests.Response
         """
         return self.fetch(
-            endpoint=f'/api/v1/me/products/{product_id}' if self.sws.user_id == 0 else f'/api/v1/users/{self.sws.user_id}/products/{product_id}',
+            endpoint=f'/api/v1/me/products/{product_id}' if self.sws.user_id == 0
+            else f'/api/v1/users/{self.sws.user_id}/products/{product_id}',
             auth='bearer',
             body={'ilok_user_id': ilok_user_id}
         )
@@ -229,11 +250,14 @@ class License(Service):
         """
         Create a new product and it's licenses with the provided purchase reference and customer reference information.
 
-        Only permanent, timelimited and subscription license product types are supported. trial license product types are not supported.
+        Only permanent, timelimited and subscription license product types are supported. trial license product types
+        are not supported.
 
         NOTE 1: One of user_id, user_email_address or reseller_name is required.
-        NOTE 2: When creating a NFR license, `created_by_user_id`, `notes`, `user_id` or `user_email_address` must be specified.
-        NOTE 3: When ordered through Serato Checkout, `checkout_order_id` and `checkout_order_item_id` must be specified.
+        NOTE 2: When creating a NFR license, `created_by_user_id`, `notes`, `user_id` or `user_email_address` must be
+        specified.
+        NOTE 3: When ordered through Serato Checkout, `checkout_order_id` and `checkout_order_item_id` must be
+        specified.
         NOTE 4: When ordered through Magento, `magento_order_id` and `magento_order_item_id` must be specified.
         NOTE 5: requires `app-license-admin` scope.
 
@@ -251,7 +275,8 @@ class License(Service):
         :param int magento_order_id: Magento Order ID.
         :param int magento_order_item_id: Magento Order Item ID.
         :param str subscription_status: Subscription status is required if product is a subscription.
-                                        Valid values are 'Active', 'Canceled', 'Expired', 'Past Due', 'Pending' and 'Expiring'.
+                                        Valid values are 'Active', 'Canceled', 'Expired', 'Past Due', 'Pending' and
+                                        'Expiring'.
         :return: Information on the product added.
         :rtype: requests.Response
         """
@@ -289,8 +314,10 @@ class License(Service):
         Update a product.
 
         NOTE 1: requires `app-license-admin` scope.
-        NOTE 2: When product is ordered through Serato Checkout, `checkout_order_id` and `checkout_order_item_id` must be specified.
-        NOTE 3: When product is ordered through Magento, `magento_order_id` and `mangeto_order_item_id` must be specified.
+        NOTE 2: When product is ordered through Serato Checkout, `checkout_order_id` and `checkout_order_item_id` must
+        be specified.
+        NOTE 3: When product is ordered through Magento, `magento_order_id` and `mangeto_order_item_id` must be
+        specified.
 
         :param str product_id: Product ID to update.
         :param str valid_to: Date at which the licenses associated with the product expire, in ISO 8601 format
