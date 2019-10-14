@@ -104,7 +104,10 @@ class Service(object):
             request.params = body
 
         if method == 'PUT' or method == 'PATCH' or method == 'POST':
-            request.data = json.dumps(body)
+            if 'Content-Type' in headers and headers['Content-Type'] is 'application/x-www-form-urlencoded':
+                request.data = body
+            else:
+                request.data = json.dumps(body)  # JSON in the body by default
             if params != {}:
                 request.params = params
         return request
