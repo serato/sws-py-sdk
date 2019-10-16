@@ -1,7 +1,6 @@
 """ This file exposes endpoints from the SWS License Service
 """
 
-from requests.auth import HTTPBasicAuth
 from sws_py_sdk.service import Service
 
 
@@ -212,7 +211,7 @@ class License(Service):
         return self.fetch(
             method='POST',
             endpoint=f'/api/v1/products/types/{product_type_id}',
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={'reset_date': reset_date}
         )
@@ -231,7 +230,7 @@ class License(Service):
         """
         return self.fetch(
             endpoint='/api/v1/products/products',
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             body={'checkout_order_id': checkout_order_id, 'magento_order_id': magento_order_id, 'user_id': user_id}
         )
 
@@ -285,7 +284,7 @@ class License(Service):
         return self.fetch(
             method='POST',
             endpoint='/api/v1/products/products',
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'product_type_id': product_type_id,
@@ -335,7 +334,7 @@ class License(Service):
         return self.fetch(
             method='PUT',
             endpoint=f'/api/v1/products/products/{product_id}',
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'valid_to': valid_to,
@@ -360,7 +359,7 @@ class License(Service):
         return self.fetch(
             method='DELETE',
             endpoint=f'/api/v1/products/products/{product_id}',
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret)
+            auth='bearer'
         )
 
     def get_product_info(self, product_id):
@@ -376,5 +375,5 @@ class License(Service):
         """
         return self.fetch(
             endpoint=f'/api/v1/products/products/{product_id}',
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret)
+            auth='bearer'
         )
