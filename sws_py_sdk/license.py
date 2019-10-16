@@ -87,7 +87,7 @@ class License(Service):
         :rtype: requests.Response
         """
         return self.fetch(
-            method='POST',
+            method='PUT',
             endpoint=f'/api/v1/me/licenses/authorizations/{authorization_id}' if self.sws.user_id == 0
             else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations/{authorization_id}',
             auth='bearer',
@@ -142,6 +142,7 @@ class License(Service):
         :rtype: requests.Response
         """
         return self.fetch(
+            method='POST',
             endpoint='/api/v1/me/products' if self.sws.user_id == 0 else f'/api/v1/users/{self.sws.user_id}/products',
             auth='bearer',
             body={
@@ -161,6 +162,7 @@ class License(Service):
         :rtype: requests.Response
         """
         return self.fetch(
+            method='PUT',
             endpoint=f'/api/v1/me/products/{product_id}' if self.sws.user_id == 0
             else f'/api/v1/users/{self.sws.user_id}/products/{product_id}',
             auth='bearer',
