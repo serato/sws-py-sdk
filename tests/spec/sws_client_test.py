@@ -10,19 +10,21 @@ APP_ID = 'myClientAppId'
 GET_LICENSES_API = '/api/v1/me/licenses'
 NEW_ACCESS_TOKEN_VALUE = 'New.Access.Token.Value'
 
-INVALID_ACCESS_TOKEN_ERRORS = [
-        {
-            'httpStatus': 403,
-            'code': 2001,
-            'errorText': 'Invalid Access token'
-        },
-            #   Access token has expired
-        {
-            'httpStatus': 401,
-            'code': 2002,
-            'errorText': 'Expired Access token'
-        }
-    ]
+INVALID_ACCESS_TOKEN_ERROR = {
+    'http_code': 403,
+    'response_body': {
+        'code': 2001,
+        'errorText': 'Invalid Access token'
+    }
+}
+
+EXPIRED_ACCESS_TOKEN_ERROR = {
+    'http_code' : 401,
+    'response_body': {
+        'code': 2002,
+        'errorText': 'Expired Access token'
+    }
+}
 MOCK_TOKEN_REFRESH_RESPONSE_BODY =  {
     "user": {
         "id": 12345,
@@ -149,20 +151,43 @@ def test_invalid_access_token_will_refresh_and_retry(requests_mock):
     # Set refresh token
     sws_client.refresh_token = MOCK_TOKEN_REFRESH_RESPONSE_BODY['tokens']['access']['token']
     # Set handler for access token update
-    sws_client.access_token_updated_handler = handle_access_token_update
+    sws_client.set_access_token_updated_callback(handle_access_token_update)
     
     # Build up mock requests
     get_licenses_url = SERVICE_URI['license'] + GET_LICENSES_API
-    requests_mock.register_uri('GET', get_licenses_url, json=MOCK_GET_LICENSES_RESPONSE_BODY, status_code=403)
+
+    requests_mock.register_uri('GET', get_licenses_url, [
+        {
+            'json': INVALID_ACCESS_TOKEN_ERROR['response_body'],  # Fail on the first try for an invalid token
+            'status_code':INVALID_ACCESS_TOKEN_ERROR['http_code']
+        },
+        {
+            'json': MOCK_GET_LICENSES_RESPONSE_BODY,  # Allow retry to succeed
+            'status_code': 200
+        },
+        {
+            'json': EXPIRED_ACCESS_TOKEN_ERROR['response_body'],  # Fail on second try for expired token
+            'status_code': EXPIRED_ACCESS_TOKEN_ERROR['http_code']
+        },
+        {
+            'json': MOCK_GET_LICENSES_RESPONSE_BODY,  # Allow retry to succeed
+            'status_code': 200
+        }
+    ])
+
+
     token_refresh_url = SERVICE_URI['id'] + TOKEN_REFRESH_URL
     requests_mock.register_uri('POST', token_refresh_url, json=MOCK_TOKEN_REFRESH_RESPONSE_BODY)
-    requests_mock.register_uri('GET', get_licenses_url, json=MOCK_GET_LICENSES_RESPONSE_BODY, status_code=200)
-    response = sws_client.license().get_licenses()
-    assert response.status_code == 200
-    data = response.json()
-    assert data == MOCK_GET_LICENSES_RESPONSE_BODY
+
+    # Try to get licenses twice. Each time it should fail from an invalid token and retry and succeed.
+    for i in range(2):
+        sws_client.license().get_licenses()
+        response = sws_client.license().get_licenses()
+        assert response.status_code == 200
+        data = response.json()
+        assert data == MOCK_GET_LICENSES_RESPONSE_BODY
+
 
 def handle_access_token_update(token, expires):
-
     assert token == MOCK_TOKEN_REFRESH_RESPONSE_BODY['tokens']['access']['token']
     assert expires == datetime.utcfromtimestamp(MOCK_TOKEN_REFRESH_RESPONSE_BODY['tokens']['access']['expires_at'])

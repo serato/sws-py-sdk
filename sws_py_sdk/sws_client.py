@@ -29,36 +29,52 @@ class SwsClient(Sws):
         auto_refresh : boolean
             Determines if the client will attempt to refresh the access token if invalid or expired.
         """
-        super().__init__(app_id=app_id, secret=secret, user_id=user_id, timeout=timeout, service_uri=service_uri, auto_refresh=auto_refresh)
-        if auto_refresh:
-            self.set_invalid_access_token_handler(self.handle_invalid_access_token)
+        super().__init__(app_id=app_id, secret=secret, user_id=user_id, timeout=timeout, service_uri=service_uri, invalid_access_token_handler=self._handle_invalid_access_token)
+        self.auto_refresh = auto_refresh
+        self.access_token_updated_callback = None
 
+    def set_access_token_updated_callback(self, callback):
+        """
+        Sets a callback for when the access token has been updated when auto_refresh is true.
+        :param function callback: Callback to execute when the access token has been updated.
+        :return: Nothing.
+        """
+        self.access_token_updated_callback = callback
 
-    """ Python does not support inline functions very well
-        So the handle function is defined here
-    """
-    def handle_invalid_access_token(self, client):
-        # Fetch the `last request` object from the service client
-        request = client.last_request
+    def _handle_invalid_access_token(self, service, response):
+        """
+        Handles the case where a response came back from a service where the access token was not valid or was expired.
 
-        response = self.identity().token_refresh(self.refresh_token)
-        #   This token refresh request may have resulted in an error that was
-        #   handled by a custom error handler.
+        If `auto_refresh` is true, will attempt to refresh the access token then attempt to make the last request again,
+        otherwise returns the original response.
 
-        data = response.json()
-        
-        if 'tokens' in data:
-            #   Update the access token property
-            self.access_token = data['tokens']['access']['token']
-            #   Call the callback
-            client.access_token_updated_handler(
-              token=self.access_token,
-              expires=datetime.datetime.utcfromtimestamp(data['tokens']['access']['expires_at'])
-            )
-            #   Set a new Authorization header for the request
-            del request.headers['Authorization']
-            request= client.sws.bearer_auth(r=request)
+        :param Service service: The service which failed to fulfill a request due to an invalid access token.
+        :param requests.Response response: The response given due to the invalid access token.
+        :return: A HTTP response.
+        :rtype: requests.Response
+        """
+        if self.auto_refresh:
+            last_request = service.last_request
+            response = self.identity().token_refresh(self.refresh_token)
+            #   This token refresh request may have resulted in an error that was
+            #   handled by a custom error handler.
 
-            #   Re-execute the 'last request'
-            return client.fetch_request(request)
+            data = response.json()
+
+            if 'tokens' in data:
+                #   Update the access token property
+                self.access_token = data['tokens']['access']['token']
+                #   Call the callback
+                if self.access_token_updated_callback:
+                    self.access_token_updated_callback(
+                      token=self.access_token,
+                      expires=datetime.datetime.utcfromtimestamp(data['tokens']['access']['expires_at'])
+                    )
+
+                #   Set a new Authorization header for the request
+                last_request.headers['Authorization'] = f'Bearer {self.access_token}'
+
+                #   Re-execute the 'last request'
+                return service.fetch_request(last_request)
+        return response
 

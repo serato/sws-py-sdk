@@ -69,7 +69,7 @@ class Service(object):
                 # Access token is invalid or expired
                 # 403 2001 - Invalid access token
                 # 401 2002 - Expired access token
-                return self.sws.invalid_access_token_handler(response)
+                return self.sws.invalid_access_token_handler(self, response)
                    
         return response
 
@@ -96,7 +96,7 @@ class Service(object):
         request = Request(method=method, url=endpoint, headers=headers)
 
         if auth is 'bearer':
-            request.headers['Authorization'] = "Bearer " + self.sws.access_token
+            request.headers['Authorization'] = f'Bearer {self.sws.access_token}'
         elif isinstance(auth, HTTPBasicAuth):
             request.auth = auth
 
