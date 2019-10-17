@@ -3,7 +3,7 @@
     Encapsulates the functionality required to communicate with the endpoints we provide.
     The definitions of each service will be contained in separate classes
 """
-from sws_py_sdk import identity, license, ecom, bearer_auth
+from sws_py_sdk import identity, license, ecom
 
 service_uri_default = {
     'id': 'id.serato.com',
@@ -13,7 +13,7 @@ service_uri_default = {
 }
 class Sws(object):
     
-    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, auto_refresh=True):
+    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, invalid_access_token_handler=None):
         """
         Create SWS object
         config : object
@@ -41,7 +41,6 @@ class Sws(object):
         self.timeout = timeout
         self.access_token = ''
         self.refresh_token = ''
-        self.auto_refresh = auto_refresh
         self.service_uris = {
             'id': service_uri['id'] if 'id' in service_uri.keys() else service_uri_default['id'],
             'license': service_uri['license'] if 'license' in service_uri.keys() else service_uri_default['license'],
@@ -54,8 +53,7 @@ class Sws(object):
             'ecom': ecom.Ecom(sws=self)
             # Define more clients here
         }
-        auth = bearer_auth.BearerAuth(self.access_token)
-        self.bearer_auth = auth
+        self.invalid_access_token_handler = invalid_access_token_handler
 
     def identity(self):
         """ Getter for the id service instance """
@@ -68,11 +66,3 @@ class Sws(object):
     def ecom(self):
         """ Getter for the ecom service instance """
         return self.service['ecom']
-    def set_invalid_access_token_handler(self, function):
-        """ Takes a function for setting the access token
-            function : function
-                The function that will handle an invalid token
-        """
-        # loop thru services and give it the handler
-        for key in self.service:
-            self.service[key].invalid_access_token_handler = function
