@@ -210,7 +210,7 @@ class License(Service):
         """
         return self.fetch(
             method='POST',
-            endpoint=f'/api/v1/products/types/{product_type_id}',
+            endpoint=f'/api/v1/products/types/{product_type_id}/trialresets',
             auth='bearer',
             headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={'reset_date': reset_date}
