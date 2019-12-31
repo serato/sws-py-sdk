@@ -279,7 +279,7 @@ class License(Service):
         :param str subscription_status: Subscription status is required if product is a subscription.
                                         Valid values are 'Active', 'Canceled', 'Expired', 'Past Due', 'Pending' and
                                         'Expiring'.
-        :param int upgrade_from_product_id: previous product ID before upgrade. When provided, the new product created will upgrade this product.
+        :param str upgrade_from_product_id: previous product ID before upgrade. When provided, the new product created will upgrade this product.
         :return: Information on the product added.
         :rtype: requests.Response
         """
