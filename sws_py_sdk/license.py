@@ -247,7 +247,8 @@ class License(Service):
                           checkout_order_item_id=None,
                           magento_order_id=None,
                           magento_order_item_id=None,
-                          subscription_status=None):
+                          subscription_status=None,
+                          upgrade_from_product_id=None):
         """
         Create a new product and it's licenses with the provided purchase reference and customer reference information.
 
@@ -278,6 +279,7 @@ class License(Service):
         :param str subscription_status: Subscription status is required if product is a subscription.
                                         Valid values are 'Active', 'Canceled', 'Expired', 'Past Due', 'Pending' and
                                         'Expiring'.
+        :param str upgrade_from_product_id: previous product ID before upgrade. When provided, the new product created will upgrade this product.
         :return: Information on the product added.
         :rtype: requests.Response
         """
@@ -299,7 +301,8 @@ class License(Service):
                 'checkout_order_item_id': checkout_order_item_id,
                 'magento_order_id': magento_order_id,
                 'magento_order_item_id': magento_order_item_id,
-                'subscription_status': subscription_status
+                'subscription_status': subscription_status,
+                'upgrade_from_product_id': upgrade_from_product_id
             }
         )
 
