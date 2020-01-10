@@ -19,7 +19,7 @@ class Identity(Service):
         """
         return self.fetch(
             auth=None,
-            endpoint='/api/v1/me/tokens/refresh',
+            endpoint='/api/v1/tokens/refresh',
             body={'refresh_token': refresh_token},
             method='POST'
         )
@@ -33,7 +33,7 @@ class Identity(Service):
             redirect_uri : str
                 The redirect URI supplied when the authorization code was issued
         """
-        endpoint = '/tokens/exchange'
+        endpoint = '/api/v1/tokens/exchange'
         return self.fetch(
             auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,
@@ -153,7 +153,7 @@ class Identity(Service):
             app_session_cookie : str    
                 application session cookie value        
         """
-        endpoint = '/users'
+        endpoint = '/api/v1/users'
         return self.fetch(
             auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,
@@ -190,7 +190,8 @@ class Identity(Service):
         )
 
     def verify_email_address(self, email_address, redirect_uri):
-        """ Post send an email to verify a change in this user's email address
+        """ Post send an email to verify a change in this user's email address 
+            via /me/sendverifyemailaddress, /users/{user_id}/sendverifyemailaddress
             email_address : str
                 User's email address
             redirect_uri : str
@@ -205,7 +206,7 @@ class Identity(Service):
                 'email_address': email_address,
                 'redirect_uri': redirect_uri
             },
-            method:'POST'
+            method='POST'
         )
 
     def post_user_gaclientid(self, ga_client_id):
@@ -220,5 +221,5 @@ class Identity(Service):
             body={
                 'ga_client_id': ga_client_id
             },
-            method:'POST'
+            method='POST'
         )
