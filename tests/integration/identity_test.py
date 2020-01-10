@@ -88,7 +88,7 @@ def test_get_me(me_endpoint_sws_client):
     assert response.status_code != 404
     assert response.status_code != 500  
 
-def test_get_me(user_endpoint_sws_client):
+def test_get_user(user_endpoint_sws_client):
     response = user_endpoint_sws_client.identity().get_user()
     
     assert response.status_code != 404
