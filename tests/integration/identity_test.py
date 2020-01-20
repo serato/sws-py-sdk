@@ -117,15 +117,6 @@ def test_me_verify_email_address(me_endpoint_sws_client):
     assert response.status_code != 404
     assert response.status_code != 500 
 
-def test_me_verify_email_address(user_endpoint_sws_client):
-    response = user_endpoint_sws_client.identity().verify_email_address(
-        email_address="test@serato.com", 
-        redirect_uri="https://serato.com"
-    )
-    
-    assert response.status_code != 404
-    assert response.status_code != 500 
-
 def test_post_user_gaclientid(user_endpoint_sws_client):
     response = user_endpoint_sws_client.identity().post_user_gaclientid(
         ga_client_id="ga_client_id"
