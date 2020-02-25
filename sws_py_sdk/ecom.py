@@ -57,21 +57,6 @@ class Ecom(Service):
             endpoint=endpoint,
             method="GET"
         )
-        
-
-    def get_invoices(self, order_id):
-        """ DEPRECATED Get list of all invoices for a user
-
-            order_id: int
-                ID of order
-        """
-        endpoint = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id)
-        endpoint = endpoint + "/orders/" + str(order_id) + "/invoice" 
-        return self.fetch(
-            auth="bearer",
-            endpoint=endpoint,
-            method="GET"
-        )
 
     def get_invoice(self, order_id, invoice_id, accept='application/json'):
         """ Gets a specific invoice for an order
