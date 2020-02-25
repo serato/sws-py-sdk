@@ -101,6 +101,20 @@ def test_get_user_invoices(user_endpoint_sws_client):
     assert response.status_code != 404
     assert response.status_code != 500
 
+def test_get_me_invoice(me_endpoint_sws_client):
+    order_id = 1000
+    invoice_id = 2000
+    response = me_endpoint_sws_client.ecom().get_invoice(order_id=order_id, invoice_id=invoice_id)
+
+    assert response.status_code != 500
+
+
+def test_get_user_invoice(user_endpoint_sws_client):
+    order_id = 1000
+    invoice_id = 2000
+    response = user_endpoint_sws_client.ecom().get_invoice(order_id=order_id, invoice_id=invoice_id)
+
+    assert response.status_code != 500
 
 def test_get_me_payment_methods(me_endpoint_sws_client):
     response = me_endpoint_sws_client.ecom().get_payment_methods()
