@@ -57,20 +57,24 @@ class Ecom(Service):
             endpoint=endpoint,
             method="GET"
         )
-        
 
-    def get_invoices(self, order_id):
-        """ Get list of all invoices for a user
+    def get_invoice(self, order_id, invoice_id, accept='application/json'):
+        """ Gets a specific invoice for an order
 
             order_id: int
-                ID of order
+                ID of the order
+            invoice_id: int
+                ID of the invoice
+            accept: string
+                Accept header, can be JSON, PDF or HTML
         """
-        endpoint = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id)
-        endpoint = endpoint + "/orders/" + str(order_id) + "/invoice" 
+        prefix = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id)
+        endpoint = f"{prefix}/orders/{order_id}/invoices/{invoice_id}"
         return self.fetch(
             auth="bearer",
             endpoint=endpoint,
-            method="GET"
+            method="GET",
+            headers={'Accept': accept}
         )
 
     def get_orders(self, order_id=0):
