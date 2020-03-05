@@ -2,7 +2,7 @@ from sws_py_sdk.service import Service
 from sws_py_sdk.identity import Identity
 from sws_py_sdk.sws import Sws
 
-TOKEN_REFRESH_URL = '/api/v1/me/tokens/refresh'
+TOKEN_REFRESH_URL = '/api/v1/tokens/refresh'
 
 MOCK_RESPONSE_BODY =  {
     "user": {

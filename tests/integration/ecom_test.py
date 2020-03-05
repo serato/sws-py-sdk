@@ -72,16 +72,14 @@ def test_delete_user_subscription(user_endpoint_sws_client):
     assert response.status_code != 500
 
 def test_get_me_orders(me_endpoint_sws_client):
-    order_id = 1000
-    response = me_endpoint_sws_client.ecom().get_orders(order_id)
+    response = me_endpoint_sws_client.ecom().get_orders()
 
     assert response.status_code != 404
     assert response.status_code != 500
 
 
-def test_get_me_orders(user_endpoint_sws_client):
-    order_id = 1000
-    response = user_endpoint_sws_client.ecom().get_orders(order_id)
+def test_get_user_orders(user_endpoint_sws_client):
+    response = user_endpoint_sws_client.ecom().get_orders()
 
     assert response.status_code != 404
     assert response.status_code != 500
