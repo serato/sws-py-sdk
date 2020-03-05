@@ -132,7 +132,7 @@ MOCK_GET_LICENSES_RESPONSE_BODY = {
   ]
 }
 
-TOKEN_REFRESH_URL = '/api/v1/me/tokens/refresh'
+TOKEN_REFRESH_URL = '/api/v1/tokens/refresh'
 GET_LICENSES_API = '/api/v1/users/1000/licenses'
 SERVICE_URI = {
     "id": "http://192.168.4.7",
