@@ -75,8 +75,7 @@ class Identity(Service):
             refresh_token_ids : string
                 A comma separated list of refresh token IDs.
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
-        endpoint += '/logout'
+        endpoint = '/api/v1/me/logout'
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
@@ -84,7 +83,22 @@ class Identity(Service):
             method='POST',
         )
 
-    
+    def user_logout(self, refresh_token_ids='', disable_login=''):
+        """ Logs user out via /user/{user_id}/logout endpoint
+            refresh_token_ids : string
+                A comma separated list of refresh token IDs.
+            disable_login : string
+                When provided, the user will be prevented from logging into the SSO service.    
+        """
+        endpoint = '/api/v1/user/' + str(self.sws.user_id) + '/logout'
+
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            body={ "refresh_token_ids": refresh_token_ids, "disable_login": disable_login },
+            method='POST',
+        )
+
     def post_users(self, email_address, password, first_name=None, last_name=None, locale=None):
         """ Creates user via the /users endpoint
             email_address : str
