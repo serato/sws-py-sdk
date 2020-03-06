@@ -68,7 +68,7 @@ class Identity(Service):
             method='POST'
         )
 
-    def logout(self, refresh_token='', refresh_token_ids=''):
+    def me_logout(self, refresh_token='', refresh_token_ids=''):
         """ Logs user out via /me/logout endpoint
             refresh_token : string
                 Refresh token for user that proves they deserve a new access token.
