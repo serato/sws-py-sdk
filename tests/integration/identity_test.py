@@ -55,7 +55,7 @@ def test_me_logout(me_endpoint_sws_client):
     assert response.status_code != 500
 
 def test_user_logout(user_endpoint_sws_client):
-    response = user_endpoint_sws_client.identity().logout(refresh_token="serato")
+    response = user_endpoint_sws_client.identity().logout(refresh_token_ids=["serato"])
     
     assert response.status_code != 404
     assert response.status_code != 500
