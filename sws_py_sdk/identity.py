@@ -90,7 +90,7 @@ class Identity(Service):
             disable_login : string
                 When provided, the user will be prevented from logging into the SSO service.    
         """
-        endpoint = '/api/v1/user/' + str(self.sws.user_id) + '/logout'
+        endpoint = '/api/v1/users/' + str(self.sws.user_id) + '/logout'
 
         return self.fetch(
             auth='bearer',
