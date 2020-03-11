@@ -3,6 +3,7 @@
 import json
 from requests import Request, Session
 from requests.auth import HTTPBasicAuth
+from sws_py_sdk import firewall_header
 
 class Service(object):
     def __init__(self, sws):
@@ -13,6 +14,7 @@ class Service(object):
         self.service_uri = ''
         self.last_request = None
         self.invalid_access_token_handler = None
+        self.FirewallHeader = firewall_header.FirewallHeader()
 
     def fetch(self,
     auth,
@@ -50,7 +52,7 @@ class Service(object):
             params=params,
             timeout=timeout,
             headers=headers)
-        
+
         return self.fetch_request(self.last_request)
 
     def fetch_request(self, request):
@@ -102,6 +104,9 @@ class Service(object):
 
         if method is 'GET' or method is 'DELETE':
             request.params = body
+
+        if self.sws.test_env == True:
+            request.headers.update(self.FirewallHeader.getHeader())
 
         if method == 'PUT' or method == 'PATCH' or method == 'POST':
             if 'Content-Type' in headers and headers['Content-Type'] == 'application/x-www-form-urlencoded':

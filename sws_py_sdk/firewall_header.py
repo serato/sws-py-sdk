@@ -1,6 +1,7 @@
 import datetime
 import hashlib
 import random
+import json
 
 class FirewallHeader:
     def __init__(self):
@@ -20,6 +21,9 @@ class FirewallHeader:
     # to the header
 
     PREFIX_CHARACTERS = 'serato'
+
+    def getHeader(self):
+        return {self.getHeaderKey(): self.getHeaderHash()}
 
     def getHeaderKey(self):
         return "x-serato-firewall"
