@@ -13,7 +13,7 @@ service_uri_default = {
 }
 class Sws(object):
     
-    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, invalid_access_token_handler=None):
+    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, invalid_access_token_handler=None, test_env=False):
         """
         Create SWS object
         config : object
@@ -54,6 +54,7 @@ class Sws(object):
             # Define more clients here
         }
         self.invalid_access_token_handler = invalid_access_token_handler
+        self.test_env = test_env
 
     def identity(self):
         """ Getter for the id service instance """
