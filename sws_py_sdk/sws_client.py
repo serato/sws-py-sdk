@@ -6,7 +6,7 @@ from .sws import Sws
 """
 class SwsClient(Sws):
 
-    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, auto_refresh=True):
+    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, auto_refresh=True, test_env=False):
         """
         Here we set up a mechanism for token refresh to be handled and triggered
         Create SWS object
@@ -28,8 +28,10 @@ class SwsClient(Sws):
             Base URI for SWS License Service
         auto_refresh : boolean
             Determines if the client will attempt to refresh the access token if invalid or expired.
+        test_env : boolean
+            Determines if we want to run the unitest from travis.
         """
-        super().__init__(app_id=app_id, secret=secret, user_id=user_id, timeout=timeout, service_uri=service_uri, invalid_access_token_handler=self._handle_invalid_access_token)
+        super().__init__(app_id=app_id, secret=secret, user_id=user_id, timeout=timeout, service_uri=service_uri, invalid_access_token_handler=self._handle_invalid_access_token, test_env=test_env)
         self.auto_refresh = auto_refresh
         self.access_token_updated_callback = None
 
