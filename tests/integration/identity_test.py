@@ -49,13 +49,13 @@ def test_user_groups(user_endpoint_sws_client):
     assert response.status_code != 500
 
 def test_me_logout(me_endpoint_sws_client):
-    response = me_endpoint_sws_client.identity().logout(refresh_token="serato")
+    response = me_endpoint_sws_client.identity().me_logout(refresh_token="serato")
     
     assert response.status_code != 404
     assert response.status_code != 500
 
 def test_user_logout(user_endpoint_sws_client):
-    response = user_endpoint_sws_client.identity().logout(refresh_token_ids=["serato"])
+    response = user_endpoint_sws_client.identity().user_logout(refresh_token_ids=["serato"])
     
     assert response.status_code != 404
     assert response.status_code != 500
