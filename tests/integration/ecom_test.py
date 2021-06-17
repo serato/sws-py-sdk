@@ -218,9 +218,9 @@ def test_update_me_plan_change(me_endpoint_sws_client):
 def test_send_braintree_webhook(me_endpoint_sws_client):
     notification_kind = "subscription_charged_successfully"
     subscription_id = "fp4f36"
-    response = me_endpoint_sws_client.ecom().update_plan_change(
+    response = me_endpoint_sws_client.ecom().send_braintree_webhook(
         notification_kind=notification_kind,
-        plan_change_id=plan_change_id
+        subscription_id=subscription_id
     )
     assert response.status_code != 500
     assert response.status_code != 404

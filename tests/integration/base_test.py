@@ -4,15 +4,15 @@ import pytest
 
 APP_ID = 'myClientAppId'
 SERVICE_URI= {
-    "id": "http://192.168.4.7",
-    "license": "http://192.168.4.6",
-    "ecom": "http://192.168.4.8"
+    "id": "http://192.168.4.14:8585",
+    "license": "http://192.168.4.14:8686",
+    "ecom": "http://192.168.4.14:8787"
 }
 
 @pytest.fixture
 def me_endpoint_sws_client():
     from sws_py_sdk.sws_client import SwsClient
-    
+
     return SwsClient(app_id=APP_ID, secret='myclientapppassword', service_uri=SERVICE_URI)
 
 
