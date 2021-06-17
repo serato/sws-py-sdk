@@ -98,13 +98,13 @@ class Ecom(Service):
         """
         endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint += '/paymentmethods'
-        
+
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
             method='GET'
         )
-        
+
 
     def update_payment_methods(self, payment_token, nonce, device_data=None, billing_address_id=None):
         """ Update the payment method that belongs to the user
@@ -116,7 +116,7 @@ class Ecom(Service):
             device_data: str
                 User device information.
             billing_address_id: str
-                The two-letter value for an address associated with a specific customer ID. 
+                The two-letter value for an address associated with a specific customer ID.
         """
         endpoint = '/api/v1/me/paymentmethods/' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id) + '/paymentmethods/'
         endpoint = endpoint + payment_token
@@ -188,4 +188,19 @@ class Ecom(Service):
             auth="bearer",
             endpoint=endpoint,
             method="DELETE"
+        )
+
+    def send_braintree_webhook(self, notification_kind, subscription_id):
+        """ Sends a braintree webhook
+
+            notification_kind: string
+                Notification type
+            subscription_id: string
+                Subscription ID
+        """
+        endpoint = '/api/v1/webhook/braintree'
+        return self.fetch(
+            auth="bearer",
+            endpoint=endpoint,
+            method="POST"
         )
