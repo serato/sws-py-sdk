@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="63b9936d-dbda-46d1-bf83-6721763877e2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/sws_py_sdk/ecom.py" beforeDir="false" afterPath="$PROJECT_DIR$/sws_py_sdk/ecom.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1u3qMQ97d1C09vePIWOW1dJ3WhY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="63b9936d-dbda-46d1-bf83-6721763877e2" name="Default Changelist" comment="" />
+      <created>1623904571912</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623904571912</updated>
+      <workItem from="1623904572957" duration="717000" />
+      <workItem from="1623965521285" duration="586000" />
+      <workItem from="1623967926762" duration="3296000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2149" y="98" key="SettingsEditor" timestamp="1623904576744">
+      <screen x="1680" y="-125" width="1920" height="1175" />
+    </state>
+    <state x="2149" y="98" key="SettingsEditor/1680.-125.1920.1175/0.25.1680.913@1680.-125.1920.1175" timestamp="1623904576744" />
+    <state x="2339" y="184" width="602" height="490" key="find.popup" timestamp="1623972643709">
+      <screen x="1680" y="-125" width="1920" height="1063" />
+    </state>
+    <state x="2339" y="184" width="602" height="490" key="find.popup/1680.-125.1920.1063/0.25.1680.1025@1680.-125.1920.1063" timestamp="1623972643709" />
+    <state x="2339" y="217" width="602" height="490" key="find.popup/1680.-125.1920.1175/0.25.1680.913@1680.-125.1920.1175" timestamp="1623970493630" />
+    <state x="2305" y="111" width="670" height="676" key="search.everywhere.popup" timestamp="1623972553746">
+      <screen x="1680" y="-125" width="1920" height="1063" />
+    </state>
+    <state x="2305" y="111" width="670" height="676" key="search.everywhere.popup/1680.-125.1920.1063/0.25.1680.1025@1680.-125.1920.1063" timestamp="1623972553746" />
+  </component>
+</project>
