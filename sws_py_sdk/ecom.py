@@ -200,8 +200,8 @@ class Ecom(Service):
         """
         endpoint = '/api/v1/webhook/braintree'
         return self.fetch(
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             body={"notification_kind": notification_kind, "subscription_id": subscription_id},
-            auth="bearer",
             endpoint=endpoint,
             method="POST"
         )
