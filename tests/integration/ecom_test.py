@@ -1,4 +1,4 @@
-""" The purpose of this test file is to perform basic integration tests 
+""" The purpose of this test file is to perform basic integration tests
 
     The scope of these tests only includes checking that non-404 responses can be attained.
     Testing that endpoints actually work to spec is the responsibility of the API and Client.
@@ -148,14 +148,14 @@ def test_update_user_payment_method(user_endpoint_sws_client):
 def test_delete_me_payment_method(me_endpoint_sws_client):
     payment_method_token = "Uvuvwevwe"
     response = me_endpoint_sws_client.ecom().delete_payment_method(payment_method_token=payment_method_token)
-    
+
     assert response.status_code != 404
     assert response.status_code != 500
 
 def test_delete_user_payment_method(user_endpoint_sws_client):
     payment_method_token = "Uvuvwevwe"
     response = user_endpoint_sws_client.ecom().delete_payment_method(payment_method_token=payment_method_token)
-    
+
     assert response.status_code != 404
     assert response.status_code != 500
 
@@ -211,6 +211,16 @@ def test_update_me_plan_change(me_endpoint_sws_client):
     response = me_endpoint_sws_client.ecom().update_plan_change(
         subscription_id=subscription_id,
         plan_change_id=plan_change_id
+    )
+    assert response.status_code != 500
+    assert response.status_code != 404
+
+def test_send_braintree_webhook(me_endpoint_sws_client):
+    notification_kind = "subscription_charged_successfully"
+    subscription_id = "fp4f36"
+    response = me_endpoint_sws_client.ecom().send_braintree_webhook(
+        notification_kind=notification_kind,
+        subscription_id=subscription_id
     )
     assert response.status_code != 500
     assert response.status_code != 404
