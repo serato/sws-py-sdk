@@ -1,0 +1,34 @@
+{
+  "dev": {
+    "id":"http://192.168.4.14:8585",
+    "license":"http://192.168.4.14:8686",
+    "profile":"http://192.168.4.14:8282",
+    "ecom":"http://192.168.4.14:8787",
+    "da":"http://192.168.4.14:8383",
+    "notifications":"http://192.168.4.14:8484"
+  },
+  "test": {
+    "id": "https://:test_env-id.serato.net",
+    "license": "https://:test_env-license.serato.net",
+    "profile": "https://:test_env-profile.serato.net",
+    "ecom": "https://:test_env-ecom.serato.net",
+    "da": "https://:test_env-da.serato.net",
+    "notifications": "https://:test_env-notifications.serato.net"
+  },
+  "staging": {
+    "id":"https://id.serato.xyz",
+    "license":"https://license.serato.xyz",
+    "profile":"https://profile.serato.xyz",
+    "ecom":"https://profile.serato.xyz",
+    "da":"https://da.serato.xyz",
+    "notifications":"https://notifications.serato.xyz"
+  },
+  "preprod": {
+    "id":"https://id.serato.biz",
+    "license":"https://license.serato.biz",
+    "profile":"https://profile.serato.biz",
+    "ecom":"https://profile.serato.biz",
+    "da":"https://da.serato.biz",
+    "notifications":"https://notifications.serato.biz"
+  }
+}
