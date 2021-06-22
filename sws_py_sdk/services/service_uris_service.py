@@ -3,8 +3,14 @@ import re
 import json
 
 class ServiceUrisService():
+    NON_TEST_ENVS = [
+        'dev',
+        'staging',
+        'preprod'
+    ]
+
     def __init__(self, environment):
-        if environment not in ['dev', 'staging', 'preprod']:
+        if environment not in self.NON_TEST_ENVS:
             test_stack_regex = re.compile(r"^test-[0-9]+$")
             if not test_stack_regex.match(environment):
                 raise Exception('Invalid environment')
@@ -15,14 +21,12 @@ class ServiceUrisService():
         variables = json.load(json_file)
         json_file.close()
 
-        test_stack_regex = re.compile(r"^test-[0-9]+$")
-        result = {}
+        if self.environment in self.NON_TEST_ENVS:
+            return variables[self.environment]
 
-        if test_stack_regex.match(self.environment):
-            testUris = variables['test']
-            for key, value in testUris.items():
-                  result[key] = value.replace(":test_env", self.environment)
-        else:
-            result = variables[self.environment]
+        result = {}
+        testUris = variables['test']
+        for key, value in testUris.items():
+              result[key] = value.replace(":test_env", self.environment)
 
         return result
