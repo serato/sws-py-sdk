@@ -2,7 +2,7 @@ import os
 import re
 import json
 
-class ServiceUris():
+class ServiceUrisService():
     def __init__(self, environment):
         if environment not in ['dev', 'staging', 'preprod']:
             test_stack_regex = re.compile(r"^test-[0-9]+$")
@@ -11,7 +11,7 @@ class ServiceUris():
         self.environment = environment
 
     def get_default_service_uris(self):
-        json_file = open(os.path.dirname(__file__) + "/data/service_uris.json")
+        json_file = open(os.path.dirname(__file__) + "/../data/service_uris.json")
         variables = json.load(json_file)
         json_file.close()
 

@@ -1,5 +1,5 @@
 from sws_py_sdk.sws import Sws
-from sws_py_sdk.service_uris import ServiceUris
+from sws_py_sdk.services.service_uris_service import ServiceUrisService
 import pytest
 import os
 import json
@@ -24,7 +24,7 @@ def get_default_service_uris_for_test_stack_data_provider():
 
 @pytest.mark.parametrize("environment", get_default_service_uris_data_provider())
 def test_get_default_service_uris(environment):
-    service = ServiceUris(environment)
+    service = ServiceUrisService(environment)
     expectedResult = get_uri_data(environment)
     actualResult = service.get_default_service_uris()
 
@@ -39,14 +39,14 @@ def test_get_default_service_uris_for_test_stack(environment):
     for key, value in testUris.items():
           expectedResult[key] = value.replace(":test_env", environment)
 
-    service = ServiceUris('test-1')
+    service = ServiceUrisService('test-1')
     actualResult = service.get_default_service_uris()
 
     assert expectedResult == actualResult
 
 def test_get_default_service_uris_for_invalid_stack():
     with pytest.raises(Exception) as excinfo:
-        service = ServiceUris('invalid')
+        service = ServiceUrisService('invalid')
         actualResult = service.get_default_service_uris()
     assert str(excinfo.value) == 'Invalid environment'
 
