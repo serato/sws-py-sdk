@@ -32,14 +32,13 @@ def test_get_default_service_uris(environment):
 
 @pytest.mark.parametrize("environment", get_default_service_uris_for_test_stack_data_provider())
 def test_get_default_service_uris_for_test_stack(environment):
-    environment = 'test-1'
     testUris = get_uri_data('test')
 
     expectedResult = {}
     for key, value in testUris.items():
           expectedResult[key] = value.replace(":test_env", environment)
 
-    service = ServiceUrisService('test-1')
+    service = ServiceUrisService(environment)
     actualResult = service.get_default_service_uris()
 
     assert expectedResult == actualResult
