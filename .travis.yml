@@ -4,12 +4,10 @@ python:
 
 install:
   # Install dependencies from Pipfile
-  - pipenv install
-  # Install flake8 Code Sniffer
-  - pip install flake8
+  - pipenv install --dev
 script:
-  # Run flake8 Code Sniffer
-#  - flake8 sws_py_sdk temporary disables since there are heaps of errors
+  # Run Code Sniffer
+#  - pipenv run flake8 sws_py_sdk
   # Run tests
   - pipenv run python -m pytest tests/spec
 
