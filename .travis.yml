@@ -11,7 +11,7 @@ script:
   # Run flake8 Code Sniffer
 #  - flake8 sws_py_sdk temporary disables since there are heaps of errors
   # Run tests
-  - pipenv run python -m pytest tests/spec/sws_test.py
+  - pipenv run python -m pytest tests/spec
 
 # Will only trigger builds for the master branch as well as branches with an opened pull requests.
 branches:
