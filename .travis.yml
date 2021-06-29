@@ -7,7 +7,7 @@ install:
   - pipenv install --dev
 script:
   # Run Code Sniffer
-  - pycodestyle sws_py_sdk --max-line-length=120
+  - pycodestyle sws_py_sdk --config=./pycodestyle
   # Run tests
   - pipenv run python -m pytest tests/spec
 
