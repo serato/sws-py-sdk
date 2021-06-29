@@ -104,8 +104,7 @@ class Identity(Service):
             method='POST',
         )
 
-    def post_users(self, email_address, password,
-                   first_name=None, last_name=None, locale=None):
+    def post_users(self, email_address, password, first_name=None, last_name=None, locale=None):
         """ Creates user via the /users endpoint
             email_address : str
                 User's email address
@@ -166,8 +165,7 @@ class Identity(Service):
             method='GET'
         )
 
-    def get_users(self, email_address='', ga_client_id='',
-                  app_session_cookie=''):
+    def get_users(self, email_address='', ga_client_id='', app_session_cookie=''):
         """ Get list of users via /api/v1/users endpoint
             email_address : str
                 User's email address

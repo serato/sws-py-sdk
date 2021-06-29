@@ -12,11 +12,7 @@ class Ecom(Service):
         super().__init__(sws)
         self.service_uri = sws.service_uris['ecom']
 
-    def add_payment_method(
-            self,
-            nonce=None,
-            device_data=None,
-            billing_address_id=None):
+    def add_payment_method(self, nonce=None, device_data=None, billing_address_id=None):
         """ Add a payment method to the authenticated client user.
             nonce: str
                 One-time-use reference to payment information provided by the user.
@@ -29,7 +25,8 @@ class Ecom(Service):
             auth='bearer',
             endpoint='/api/v1/me/paymentmethods' if self.sws.user_id == 0 else '/api/v1/users/' +
             str(self.sws.user_id) + '/paymentmethods',
-            body={"nonce": nonce, "device_data": device_data, "billing_address_id": billing_address_id},
+            body={"nonce": nonce, "device_data": device_data,
+                  "billing_address_id": billing_address_id},
             method='POST'
         )
 
@@ -115,12 +112,7 @@ class Ecom(Service):
             method='GET'
         )
 
-    def update_payment_methods(
-            self,
-            payment_token,
-            nonce,
-            device_data=None,
-            billing_address_id=None):
+    def update_payment_methods(self, payment_token, nonce, device_data=None, billing_address_id=None):
         """ Update the payment method that belongs to the user
 
             payment_token: str
@@ -140,10 +132,9 @@ class Ecom(Service):
             auth='bearer',
             endpoint=endpoint,
             method='PUT',
-            body={
-                "nonce": nonce,
-                "device_data": device_data,
-                "billing_address_id": billing_address_id})
+            body={"nonce": nonce, "device_data": device_data,
+                  "billing_address_id": billing_address_id}
+        )
 
     def update_plan_change(self, subscription_id, plan_change_id):
         """ Update an existing plan change
@@ -163,11 +154,7 @@ class Ecom(Service):
             method="PUT"
         )
 
-    def update_subscription(
-            self,
-            subscription_id,
-            number_of_billing_cycle=None,
-            payment_method_token=None):
+    def update_subscription(self, subscription_id, number_of_billing_cycle=None, payment_method_token=None):
         """ Update a subscription owned by the user
 
             subscription_id: str
@@ -183,10 +170,10 @@ class Ecom(Service):
         return self.fetch(
             auth="bearer",
             endpoint=endpoint,
-            body={
-                "number_of_billing_cycle": number_of_billing_cycle,
-                "payment_method_token": payment_method_token},
-            method="PUT")
+            body={"number_of_billing_cycle": number_of_billing_cycle,
+                  "payment_method_token": payment_method_token},
+            method="PUT"
+        )
 
     def delete_payment_method(self, payment_method_token):
         """ Deletes the user's payment method for the given payment method token
@@ -228,11 +215,10 @@ class Ecom(Service):
         """
         endpoint = '/api/v1/webhook/braintree'
         return self.fetch(
-            auth=HTTPBasicAuth(
-                username=self.sws.app_id,
-                password=self.sws.secret),
-            body={
-                "notification_kind": notification_kind,
-                "subscription_id": subscription_id},
+            auth=HTTPBasicAuth(username=self.sws.app_id,
+                               password=self.sws.secret),
+            body={"notification_kind": notification_kind,
+                  "subscription_id": subscription_id},
             endpoint=endpoint,
-            method="POST")
+            method="POST"
+        )

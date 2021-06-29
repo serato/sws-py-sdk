@@ -9,13 +9,7 @@ class License(Service):
         super().__init__(sws)
         self.service_uri = sws.service_uris['license']
 
-    def get_licenses(
-            self,
-            app_name=None,
-            app_version=None,
-            term=None,
-            include_upgraded=None,
-            include_deleted=None):
+    def get_licenses(self, app_name=None, app_version=None, term=None, include_upgraded=None, include_deleted=None):
         """
         Gets the licenses owned by the user.
 
@@ -37,7 +31,9 @@ class License(Service):
                 'app_version': app_version,
                 'term': term,
                 'include_upgraded': include_upgraded,
-                'include_deleted': include_deleted})
+                'include_deleted': include_deleted
+            }
+        )
 
     def create_license_authorization(self,
                                      action,
@@ -68,7 +64,8 @@ class License(Service):
             endpoint='/api/v1/me/licenses/authorizations' if self.sws.user_id == 0
             else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations',
             auth='bearer',
-            headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'action': action,
                 'app_name': app_name,
@@ -94,7 +91,8 @@ class License(Service):
             endpoint=f'/api/v1/me/licenses/authorizations/{authorization_id}' if self.sws.user_id == 0
             else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations/{authorization_id}',
             auth='bearer',
-            headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/x-www-form-urlencoded'},
             body={'status_code': status_code}
         )
 
@@ -129,13 +127,11 @@ class License(Service):
                 'term': term,
                 'show_license_activations': show_license_activations,
                 'include_upgraded': include_upgraded,
-                'include_deleted': include_deleted})
+                'include_deleted': include_deleted
+            }
+        )
 
-    def add_product(
-            self,
-            host_machine_id=None,
-            product_type_id=None,
-            product_serial_number=None):
+    def add_product(self, host_machine_id=None, product_type_id=None, product_serial_number=None):
         """
         Adds a product to the user.
 
@@ -153,7 +149,9 @@ class License(Service):
             body={
                 'host_machine_id': host_machine_id,
                 'product_type_id': product_type_id,
-                'product_serial_number': product_serial_number})
+                'product_serial_number': product_serial_number
+            }
+        )
 
     def update_product(self, product_id, ilok_user_id):
         """
@@ -185,10 +183,8 @@ class License(Service):
         return self.fetch(
             endpoint='/api/v1/products/types',
             auth='bearer',
-            body={
-                'app_name': app_name,
-                'app_version': app_version,
-                'term': term})
+            body={'app_name': app_name, 'app_version': app_version, 'term': term}
+        )
 
     def get_product_type_details(self, product_type_id):
         """
@@ -218,17 +214,12 @@ class License(Service):
             method='POST',
             endpoint=f'/api/v1/products/types/{product_type_id}/trialresets',
             auth='bearer',
-            headers={
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'},
-            body={
-                'reset_date': reset_date})
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/x-www-form-urlencoded'},
+            body={'reset_date': reset_date}
+        )
 
-    def admin_get_products(
-            self,
-            checkout_order_id=None,
-            magento_order_id=None,
-            user_id=None):
+    def admin_get_products(self, checkout_order_id=None, magento_order_id=None, user_id=None):
         """
         Get a list of products filtered by purchase reference information and/or user ID.
 
@@ -243,10 +234,9 @@ class License(Service):
         return self.fetch(
             endpoint='/api/v1/products/products',
             auth='bearer',
-            body={
-                'checkout_order_id': checkout_order_id,
-                'magento_order_id': magento_order_id,
-                'user_id': user_id})
+            body={'checkout_order_id': checkout_order_id,
+                  'magento_order_id': magento_order_id, 'user_id': user_id}
+        )
 
     def admin_add_product(self,
                           product_type_id,
@@ -294,7 +284,7 @@ class License(Service):
                                         Valid values are 'Active', 'Canceled', 'Expired', 'Past Due', 'Pending' and
                                         'Expiring'.
         :param str upgrade_from_product_id: previous product ID before upgrade.
-                                        When provided, the new product created will upgrade this product.
+                                         When provided, the new product created will upgrade this product.
         :return: Information on the product added.
         :rtype: requests.Response
         """
@@ -302,9 +292,8 @@ class License(Service):
             method='POST',
             endpoint='/api/v1/products/products',
             auth='bearer',
-            headers={
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'product_type_id': product_type_id,
                 'user_id': user_id,
@@ -319,7 +308,9 @@ class License(Service):
                 'magento_order_id': magento_order_id,
                 'magento_order_item_id': magento_order_item_id,
                 'subscription_status': subscription_status,
-                'upgrade_from_product_id': upgrade_from_product_id})
+                'upgrade_from_product_id': upgrade_from_product_id
+            }
+        )
 
     def admin_update_product(self,
                              product_id,
@@ -353,16 +344,17 @@ class License(Service):
             method='PUT',
             endpoint=f'/api/v1/products/products/{product_id}',
             auth='bearer',
-            headers={
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'valid_to': valid_to,
                 'checkout_order_id': checkout_order_id,
                 'checkout_order_item_id': checkout_order_item_id,
                 'magento_order_id': magento_order_id,
                 'magento_order_item_id': magento_order_item_id,
-                'subscription_status': subscription_status})
+                'subscription_status': subscription_status
+            }
+        )
 
     def delete_product(self, product_id):
         """

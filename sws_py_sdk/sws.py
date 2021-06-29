@@ -16,14 +16,15 @@ service_uri_default = {
 class Sws(object):
 
     def __init__(
-            self,
-            app_id,
-            secret=None,
-            user_id=0,
-            timeout=3000,
-            service_uri={},
-            invalid_access_token_handler=None,
-            test_env=False):
+        self,
+        app_id,
+        secret=None,
+        user_id=0,
+        timeout=3000,
+        service_uri={},
+        invalid_access_token_handler=None,
+        test_env=False
+    ):
         """
         Create SWS object
         config : object
@@ -54,7 +55,8 @@ class Sws(object):
         self.service_uris = {
             'id': service_uri['id'] if 'id' in service_uri.keys() else service_uri_default['id'],
             'license': service_uri['license'] if 'license' in service_uri.keys() else service_uri_default['license'],
-            'ecom': service_uri['ecom'] if 'ecom' in service_uri.keys() else service_uri_default['ecom']}
+            'ecom': service_uri['ecom'] if 'ecom' in service_uri.keys() else service_uri_default['ecom']
+        }
 
         self.service = {
             'id': identity.Identity(sws=self),

@@ -7,10 +7,9 @@ import json
 class FirewallHeader:
     def __init__(self):
         super().__init__()
-    # Represents a strategy for generating a header that identifies Serato applications to the firewall.
-    # This header should be non-trivial to guess by outsiders (unless they find this repository).
-    # If we wanted to make this header harder to guess, we could introduce an environment variable that isn't present in
-    # the source code.
+    # Represents a strategy for generating a header that identifies Serato applications to the firewall. This header
+    # should be non-trivial to guess by outsiders (unless they find this repository). If we wanted to make this header
+    # harder to guess, we could introduce an environment variable that isn't present in the source code.
 
     # The values by which ordinal values of the ASCII characters in each 8-character chunk of the md5 hash will be
     # shifted
@@ -51,8 +50,7 @@ class FirewallHeader:
         g_hash = hashlib.md5(timeStamp).hexdigest()
         shiftedHash = ""
         for i in range(0, 4):
-            shiftedHash += self.shiftChunk(
-                g_hash[i * 8:i * 8 + 8], self.SHIFTS[i])
+            shiftedHash += self.shiftChunk(g_hash[i*8:i*8+8], self.SHIFTS[i])
 
         shiftedHash = self.replaceInvalidCharacters(shiftedHash)
 

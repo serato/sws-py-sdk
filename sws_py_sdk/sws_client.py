@@ -8,15 +8,7 @@ from .sws import Sws
 
 class SwsClient(Sws):
 
-    def __init__(
-            self,
-            app_id,
-            secret=None,
-            user_id=0,
-            timeout=3000,
-            service_uri={},
-            auto_refresh=True,
-            test_env=False):
+    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, auto_refresh=True, test_env=False):
         """
         Here we set up a mechanism for token refresh to be handled and triggered
         Create SWS object
@@ -41,14 +33,8 @@ class SwsClient(Sws):
         test_env : boolean
             Determines if we want to run the unitest from travis.
         """
-        super().__init__(
-            app_id=app_id,
-            secret=secret,
-            user_id=user_id,
-            timeout=timeout,
-            service_uri=service_uri,
-            invalid_access_token_handler=self._handle_invalid_access_token,
-            test_env=test_env)
+        super().__init__(app_id=app_id, secret=secret, user_id=user_id, timeout=timeout, service_uri=service_uri,
+                         invalid_access_token_handler=self._handle_invalid_access_token, test_env=test_env)
         self.auto_refresh = auto_refresh
         self.access_token_updated_callback = None
 
@@ -86,8 +72,10 @@ class SwsClient(Sws):
                 #   Call the callback
                 if self.access_token_updated_callback:
                     self.access_token_updated_callback(
-                        token=self.access_token, expires=datetime.datetime.utcfromtimestamp(
-                            data['tokens']['access']['expires_at']))
+                        token=self.access_token,
+                        expires=datetime.datetime.utcfromtimestamp(
+                            data['tokens']['access']['expires_at'])
+                    )
 
                 #   Set a new Authorization header for the request
                 last_request.headers['Authorization'] = f'Bearer {self.access_token}'

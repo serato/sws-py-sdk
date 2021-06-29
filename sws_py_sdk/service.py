@@ -47,11 +47,8 @@ class Service(object):
         """
         self.last_request = self.build_request(
             auth=auth,
-            endpoint=(
-                '' if self.service_uri.find('://') != -
-                1 else 'https://') +
-            self.service_uri +
-            endpoint,
+            endpoint=('' if self.service_uri.find('://') != -
+                      1 else 'https://') + self.service_uri + endpoint,
             body=body,
             method=method,
             params=params,
@@ -80,15 +77,7 @@ class Service(object):
 
         return response
 
-    def build_request(
-            self,
-            auth,
-            endpoint,
-            body,
-            params,
-            method,
-            timeout,
-            headers):
+    def build_request(self, auth, endpoint, body, params, method, timeout, headers):
         """ Build up the request object.
             auth : object | string
                 Will either contain a configured form of authentication - like the well supported
