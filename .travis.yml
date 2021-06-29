@@ -7,7 +7,7 @@ install:
   - pipenv install --dev
 script:
   # Run Code Sniffer
-#  - pipenv run flake8 sws_py_sdk
+  - pycodestyle sws_py_sdk --max-line-length=120
   # Run tests
   - pipenv run python -m pytest tests/spec
 
