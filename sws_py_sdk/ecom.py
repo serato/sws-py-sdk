@@ -5,6 +5,7 @@ from requests.auth import HTTPBasicAuth
 
 from sws_py_sdk.service import Service
 
+
 class Ecom(Service):
 
     def __init__(self, sws):
@@ -23,8 +24,8 @@ class Ecom(Service):
         return self.fetch(
             auth='bearer',
             endpoint='/api/v1/me/paymentmethods' if self.sws.user_id == 0 else '/api/v1/users/' +
-                str(self.sws.user_id) + '/paymentmethods',
-            body={"nonce": nonce, "device_data": device_data, "billing_address_id": billing_address_id },
+            str(self.sws.user_id) + '/paymentmethods',
+            body={"nonce": nonce, "device_data": device_data, "billing_address_id": billing_address_id},
             method='POST'
         )
 
@@ -49,7 +50,8 @@ class Ecom(Service):
     def get_subscriptions(self, subscription_id=''):
         """ Get subscriptions owned by a user
         """
-        endpoint = "/api/v1/me/subscriptions" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id) + "/subscriptions"
+        endpoint = "/api/v1/me/subscriptions" if self.sws.user_id == 0 else "/api/v1/users/" + \
+            str(self.sws.user_id) + "/subscriptions"
         if subscription_id != '':
             endpoint += "/" + str(subscription_id)
         return self.fetch(
@@ -105,7 +107,6 @@ class Ecom(Service):
             method='GET'
         )
 
-
     def update_payment_methods(self, payment_token, nonce, device_data=None, billing_address_id=None):
         """ Update the payment method that belongs to the user
 
@@ -118,15 +119,17 @@ class Ecom(Service):
             billing_address_id: str
                 The two-letter value for an address associated with a specific customer ID.
         """
-        endpoint = '/api/v1/me/paymentmethods/' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id) + '/paymentmethods/'
+        endpoint = '/api/v1/me/paymentmethods/' if self.sws.user_id == 0 else '/api/v1/users/' + \
+            str(self.sws.user_id) + '/paymentmethods/'
         endpoint = endpoint + payment_token
 
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
             method='PUT',
-            body={ "nonce": nonce, "device_data": device_data, "billing_address_id": billing_address_id }
+            body={"nonce": nonce, "device_data": device_data, "billing_address_id": billing_address_id}
         )
+
     def update_plan_change(self, subscription_id, plan_change_id):
         """ Update an existing plan change
 

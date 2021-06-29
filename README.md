@@ -28,6 +28,7 @@ The tests are run with Pytest and assume that you have your local vagrant machin
 Run the tests with:
 
 ```
+pipenv install --dev
 pipenv run python -m pytest
 ```
 

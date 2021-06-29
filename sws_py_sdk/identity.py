@@ -6,6 +6,7 @@ from requests.auth import HTTPBasicAuth
 
 from sws_py_sdk.service import Service
 
+
 class Identity(Service):
 
     def __init__(self, sws):
@@ -79,7 +80,7 @@ class Identity(Service):
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={ "refresh_token": refresh_token, "refresh_token_ids": refresh_token_ids },
+            body={"refresh_token": refresh_token, "refresh_token_ids": refresh_token_ids},
             method='POST',
         )
 
@@ -88,14 +89,14 @@ class Identity(Service):
             refresh_token_ids : string
                 A comma separated list of refresh token IDs.
             disable_login : string
-                When provided, the user will be prevented from logging into the SSO service.    
+                When provided, the user will be prevented from logging into the SSO service.
         """
         endpoint = '/api/v1/users/' + str(self.sws.user_id) + '/logout'
 
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={ "refresh_token_ids": refresh_token_ids, "disable_login": disable_login },
+            body={"refresh_token_ids": refresh_token_ids, "disable_login": disable_login},
             method='POST',
         )
 
@@ -150,7 +151,7 @@ class Identity(Service):
     def get_user(self):
         """ Get user detail via /api/v1/me, /api/v1/users/{user_id} endpoint
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/'+ str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
@@ -164,8 +165,8 @@ class Identity(Service):
                 User's email address
             ga_client_id : str
                 Google Client ID
-            app_session_cookie : str    
-                application session cookie value        
+            app_session_cookie : str
+                application session cookie value
         """
         endpoint = '/api/v1/users'
         return self.fetch(
@@ -180,7 +181,7 @@ class Identity(Service):
     def delete_user(self):
         """ DELETE  create user deactivation request.
         """
-        endpoint = '/api/v1/me' 
+        endpoint = '/api/v1/me'
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
@@ -204,14 +205,14 @@ class Identity(Service):
         )
 
     def verify_email_address(self, email_address, redirect_uri):
-        """ Post send an email to verify a change in this user's email address 
+        """ Post send an email to verify a change in this user's email address
             via /me/sendverifyemailaddress, /users/{user_id}/sendverifyemailaddress
             email_address : str
                 User's email address
             redirect_uri : str
                 URI to redirect to after an email is sent
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/'+ str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint += '/sendverifyemailaddress'
         return self.fetch(
             auth='bearer',
@@ -228,7 +229,7 @@ class Identity(Service):
             ga_client_id : str
                 Google Client ID
         """
-        endpoint = '/api/v1/users/'+ str(self.sws.user_id) + '/gaclientid'
+        endpoint = '/api/v1/users/' + str(self.sws.user_id) + '/gaclientid'
         return self.fetch(
             auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,

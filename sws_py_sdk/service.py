@@ -5,6 +5,7 @@ from requests import Request, Session
 from requests.auth import HTTPBasicAuth
 from sws_py_sdk import firewall_header
 
+
 class Service(object):
     def __init__(self, sws):
         """ Initializes the service object with a reference to the base SWS instance.
@@ -17,14 +18,14 @@ class Service(object):
         self.FirewallHeader = firewall_header.FirewallHeader()
 
     def fetch(self,
-    auth,
-    endpoint,
-    body={},
-    params={},
-    method='GET',
-    timeout=None,
-    headers={'Accept': 'application/json',
-            'Content-Type': 'application/json'}):
+              auth,
+              endpoint,
+              body={},
+              params={},
+              method='GET',
+              timeout=None,
+              headers={'Accept': 'application/json',
+                       'Content-Type': 'application/json'}):
         """ Highest level function for handling requests
             auth : object | string
                 Will either contain a configured form of authentication - like the well supported
@@ -42,12 +43,12 @@ class Service(object):
                 no data from the server.
             headers : dict
                 The headers that will be sent in the request
-            
+
         """
         self.last_request = self.build_request(
             auth=auth,
             endpoint=('' if self.service_uri.find('://') != -1 else 'https://') + self.service_uri + endpoint,
-            body=body, 
+            body=body,
             method=method,
             params=params,
             timeout=timeout,
@@ -67,12 +68,12 @@ class Service(object):
         if not response.ok:
             data = response.json()
             if ((response.status_code == 403 and data['code'] == 2001)
-                or (response.status_code == 401 and data['code'] == 2002)):
+                    or (response.status_code == 401 and data['code'] == 2002)):
                 # Access token is invalid or expired
                 # 403 2001 - Invalid access token
                 # 401 2002 - Expired access token
                 return self.sws.invalid_access_token_handler(self, response)
-                   
+
         return response
 
     def build_request(self, auth, endpoint, body, params, method, timeout, headers):
@@ -105,7 +106,7 @@ class Service(object):
         if method is 'GET' or method is 'DELETE':
             request.params = body
 
-        if self.sws.test_env == True:
+        if self.sws.test_env:
             request.headers.update(self.FirewallHeader.getHeader())
 
         if method == 'PUT' or method == 'PATCH' or method == 'POST':

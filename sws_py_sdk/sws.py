@@ -11,9 +11,20 @@ service_uri_default = {
     'ecom': 'ecom.serato.com',
     # profile: 'profile.serato.com'
 }
+
+
 class Sws(object):
-    
-    def __init__(self, app_id, secret=None, user_id=0, timeout=3000, service_uri={}, invalid_access_token_handler=None, test_env=False):
+
+    def __init__(
+        self,
+        app_id,
+        secret=None,
+        user_id=0,
+        timeout=3000,
+        service_uri={},
+        invalid_access_token_handler=None,
+        test_env=False
+    ):
         """
         Create SWS object
         config : object

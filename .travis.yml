@@ -1,0 +1,17 @@
+language: python
+python:
+  - "3.7"
+
+install:
+  # Install dependencies from Pipfile
+  - pipenv install --dev
+script:
+  # Run Code Sniffer
+  - pycodestyle sws_py_sdk --config=./pycodestyle
+  # Run tests
+  - pipenv run python -m pytest tests/spec
+
+# Will only trigger builds for the master branch as well as branches with an opened pull requests.
+branches:
+  only:
+    - master

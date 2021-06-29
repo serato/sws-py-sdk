@@ -181,7 +181,7 @@ class License(Service):
         return self.fetch(
             endpoint='/api/v1/products/types',
             auth='bearer',
-            body={'app_name': app_name, 'app_version': app_version, 'term': term }
+            body={'app_name': app_name, 'app_version': app_version, 'term': term}
         )
 
     def get_product_type_details(self, product_type_id):
@@ -279,7 +279,8 @@ class License(Service):
         :param str subscription_status: Subscription status is required if product is a subscription.
                                         Valid values are 'Active', 'Canceled', 'Expired', 'Past Due', 'Pending' and
                                         'Expiring'.
-        :param str upgrade_from_product_id: previous product ID before upgrade. When provided, the new product created will upgrade this product.
+        :param str upgrade_from_product_id: previous product ID before upgrade.
+                                        When provided, the new product created will upgrade this product.
         :return: Information on the product added.
         :rtype: requests.Response
         """
