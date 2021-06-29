@@ -36,8 +36,7 @@ class Identity(Service):
         """
         endpoint = '/api/v1/tokens/exchange'
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id,
-                               password=self.sws.secret),
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,
             body={
                 'grant_type': grant_type,
@@ -59,8 +58,7 @@ class Identity(Service):
                 Human readable name of machine
         """
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id,
-                               password=self.sws.secret),
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint='/api/v1/login',
             body={
                 'email_address': email_address,
@@ -82,8 +80,7 @@ class Identity(Service):
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={"refresh_token": refresh_token,
-                  "refresh_token_ids": refresh_token_ids},
+            body={"refresh_token": refresh_token, "refresh_token_ids": refresh_token_ids},
             method='POST',
         )
 
@@ -99,8 +96,7 @@ class Identity(Service):
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={"refresh_token_ids": refresh_token_ids,
-                  "disable_login": disable_login},
+            body={"refresh_token_ids": refresh_token_ids, "disable_login": disable_login},
             method='POST',
         )
 
@@ -141,8 +137,7 @@ class Identity(Service):
             group_name : str
                 User group name
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint += '/groups'
         return self.fetch(
             auth='bearer',
@@ -156,8 +151,7 @@ class Identity(Service):
     def get_user(self):
         """ Get user detail via /api/v1/me, /api/v1/users/{user_id} endpoint
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
@@ -176,8 +170,7 @@ class Identity(Service):
         """
         endpoint = '/api/v1/users'
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id,
-                               password=self.sws.secret),
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,
             body={
                 'email_address': email_address
@@ -203,8 +196,7 @@ class Identity(Service):
         """
         endpoint = '/api/v1/sendresetpassword'
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id,
-                               password=self.sws.secret),
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,
             body={
                 'email_address': email_address
@@ -220,8 +212,7 @@ class Identity(Service):
             redirect_uri : str
                 URI to redirect to after an email is sent
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint += '/sendverifyemailaddress'
         return self.fetch(
             auth='bearer',
@@ -240,8 +231,7 @@ class Identity(Service):
         """
         endpoint = '/api/v1/users/' + str(self.sws.user_id) + '/gaclientid'
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id,
-                               password=self.sws.secret),
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,
             body={
                 'ga_client_id': ga_client_id

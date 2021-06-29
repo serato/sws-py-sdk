@@ -73,8 +73,7 @@ class SwsClient(Sws):
                 if self.access_token_updated_callback:
                     self.access_token_updated_callback(
                         token=self.access_token,
-                        expires=datetime.datetime.utcfromtimestamp(
-                            data['tokens']['access']['expires_at'])
+                        expires=datetime.datetime.utcfromtimestamp(data['tokens']['access']['expires_at'])
                     )
 
                 #   Set a new Authorization header for the request

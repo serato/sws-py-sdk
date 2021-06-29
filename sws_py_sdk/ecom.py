@@ -25,8 +25,7 @@ class Ecom(Service):
             auth='bearer',
             endpoint='/api/v1/me/paymentmethods' if self.sws.user_id == 0 else '/api/v1/users/' +
             str(self.sws.user_id) + '/paymentmethods',
-            body={"nonce": nonce, "device_data": device_data,
-                  "billing_address_id": billing_address_id},
+            body={"nonce": nonce, "device_data": device_data, "billing_address_id": billing_address_id},
             method='POST'
         )
 
@@ -38,8 +37,7 @@ class Ecom(Service):
             catalog_product_id: int
                 The id of the product that the subscription wants to change to
         """
-        endpoint = '/api/v1/me/' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = '/api/v1/me/' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "subscriptions/" + subscription_id + "/planchanges"
 
         return self.fetch(
@@ -72,8 +70,7 @@ class Ecom(Service):
             accept: string
                 Accept header, can be JSON, PDF or HTML
         """
-        prefix = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + \
-            str(self.sws.user_id)
+        prefix = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id)
         endpoint = f"{prefix}/orders/{order_id}/invoices/{invoice_id}"
         return self.fetch(
             auth="bearer",
@@ -88,8 +85,7 @@ class Ecom(Service):
             order_id: int
                 ID of order
         """
-        endpoint = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + \
-            str(self.sws.user_id)
+        endpoint = "/api/v1/me" if self.sws.user_id == 0 else "/api/v1/users/" + str(self.sws.user_id)
         endpoint = endpoint + "/orders"
         if order_id != 0:
             endpoint = endpoint + "/" + str(order_id)
@@ -102,8 +98,7 @@ class Ecom(Service):
     def get_payment_methods(self):
         """ Gets users payment methods
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint += '/paymentmethods'
 
         return self.fetch(
@@ -132,8 +127,7 @@ class Ecom(Service):
             auth='bearer',
             endpoint=endpoint,
             method='PUT',
-            body={"nonce": nonce, "device_data": device_data,
-                  "billing_address_id": billing_address_id}
+            body={"nonce": nonce, "device_data": device_data, "billing_address_id": billing_address_id}
         )
 
     def update_plan_change(self, subscription_id, plan_change_id):
@@ -144,10 +138,8 @@ class Ecom(Service):
             plan_change_id: str
                 The ID for the change request
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
-        endpoint = endpoint + "/subscriptions/" + \
-            subscription_id + "/planchanges/" + plan_change_id
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint = endpoint + "/subscriptions/" + subscription_id + "/planchanges/" + plan_change_id
         return self.fetch(
             auth="bearer",
             endpoint=endpoint,
@@ -164,14 +156,12 @@ class Ecom(Service):
             payment_method_token: str
                 Token style identifier of the payment method
         """
-        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "/subscriptions/" + subscription_id
         return self.fetch(
             auth="bearer",
             endpoint=endpoint,
-            body={"number_of_billing_cycle": number_of_billing_cycle,
-                  "payment_method_token": payment_method_token},
+            body={"number_of_billing_cycle": number_of_billing_cycle, "payment_method_token": payment_method_token},
             method="PUT"
         )
 
@@ -181,8 +171,7 @@ class Ecom(Service):
             payment_method_token: str
                 Token style identifier of the payment method
         """
-        endpoint = endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "/paymentmethods/" + payment_method_token
         return self.fetch(
             auth="bearer",
@@ -196,8 +185,7 @@ class Ecom(Service):
             subscription_id: int
                 Token style identifier of the payment method
         """
-        endpoint = endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + \
-            str(self.sws.user_id)
+        endpoint = endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "/subscriptions/" + subscription_id
         return self.fetch(
             auth="bearer",
@@ -215,10 +203,8 @@ class Ecom(Service):
         """
         endpoint = '/api/v1/webhook/braintree'
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id,
-                               password=self.sws.secret),
-            body={"notification_kind": notification_kind,
-                  "subscription_id": subscription_id},
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            body={"notification_kind": notification_kind, "subscription_id": subscription_id},
             endpoint=endpoint,
             method="POST"
         )

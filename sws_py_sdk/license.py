@@ -64,8 +64,7 @@ class License(Service):
             endpoint='/api/v1/me/licenses/authorizations' if self.sws.user_id == 0
             else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations',
             auth='bearer',
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'action': action,
                 'app_name': app_name,
@@ -91,8 +90,7 @@ class License(Service):
             endpoint=f'/api/v1/me/licenses/authorizations/{authorization_id}' if self.sws.user_id == 0
             else f'/api/v1/users/{self.sws.user_id}/licenses/authorizations/{authorization_id}',
             auth='bearer',
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={'status_code': status_code}
         )
 
@@ -214,8 +212,7 @@ class License(Service):
             method='POST',
             endpoint=f'/api/v1/products/types/{product_type_id}/trialresets',
             auth='bearer',
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={'reset_date': reset_date}
         )
 
@@ -234,8 +231,7 @@ class License(Service):
         return self.fetch(
             endpoint='/api/v1/products/products',
             auth='bearer',
-            body={'checkout_order_id': checkout_order_id,
-                  'magento_order_id': magento_order_id, 'user_id': user_id}
+            body={'checkout_order_id': checkout_order_id, 'magento_order_id': magento_order_id, 'user_id': user_id}
         )
 
     def admin_add_product(self,
@@ -284,7 +280,7 @@ class License(Service):
                                         Valid values are 'Active', 'Canceled', 'Expired', 'Past Due', 'Pending' and
                                         'Expiring'.
         :param str upgrade_from_product_id: previous product ID before upgrade.
-                                         When provided, the new product created will upgrade this product.
+                                        When provided, the new product created will upgrade this product.
         :return: Information on the product added.
         :rtype: requests.Response
         """
@@ -292,8 +288,7 @@ class License(Service):
             method='POST',
             endpoint='/api/v1/products/products',
             auth='bearer',
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'product_type_id': product_type_id,
                 'user_id': user_id,
@@ -344,8 +339,7 @@ class License(Service):
             method='PUT',
             endpoint=f'/api/v1/products/products/{product_id}',
             auth='bearer',
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/x-www-form-urlencoded'},
+            headers={'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded'},
             body={
                 'valid_to': valid_to,
                 'checkout_order_id': checkout_order_id,

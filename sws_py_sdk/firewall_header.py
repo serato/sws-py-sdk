@@ -41,11 +41,9 @@ class FirewallHeader:
 
     def getHeaderHash(self):
         # @var string Date/time at which this header was created (used to create the hash)
-        timeStamp = datetime.datetime.now().strftime(
-            "%d-%b-%Y (%H:%M:%S.%f)").encode('utf-8')
+        timeStamp = datetime.datetime.now().strftime("%d-%b-%Y (%H:%M:%S.%f)").encode('utf-8')
         # @var string Three letter prefix for the firewall header, from the set of PREFIX_CHARACTERS letters
-        prefix = ''.join(random.choice(self.PREFIX_CHARACTERS)
-                         for i in range(3))
+        prefix = ''.join(random.choice(self.PREFIX_CHARACTERS) for i in range(3))
 
         g_hash = hashlib.md5(timeStamp).hexdigest()
         shiftedHash = ""
