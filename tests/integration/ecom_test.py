@@ -285,7 +285,7 @@ def test_create_promotion_rule(me_endpoint_sws_client):
     assert response.status_code != 500
     assert response.status_code != 404
 
-def testdelete_promotion(me_endpoint_sws_client):
+def test_delete_promotion(me_endpoint_sws_client):
     promotion_id = "7063"
     response = me_endpoint_sws_client.ecom().delete_promotion(promotion_id=promotion_id)
 
@@ -296,6 +296,6 @@ def test_delete_promotion_coupon(me_endpoint_sws_client):
     promotion_id = "7033"
     coupon_code = "COUPONCODE"
     response = me_endpoint_sws_client.ecom().delete_promotion_coupon(promotion_id=promotion_id, coupon_code=coupon_code)
-
+    
     assert response.status_code != 404
     assert response.status_code != 500
