@@ -224,7 +224,7 @@ class Ecom(Service):
         """
         endpoint = '/api/v1/promotions'
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             body={
                 "name": name,
                 "description": description,
@@ -256,7 +256,7 @@ class Ecom(Service):
         """
         endpoint = f"/api/v1/promotions/{promotion_id}/coupons"
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             body={
                 "usage_limit": usage_limit,
                 "usage_limit_per_user": usage_limit_per_user,
@@ -288,7 +288,7 @@ class Ecom(Service):
         """
         endpoint = f"/api/v1/promotions/{promotion_id}/rules"
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             body={
                 "product_type_id": product_type_id,
                 "discount_percentage": discount_percentage,
@@ -308,7 +308,7 @@ class Ecom(Service):
         """
         endpoint = f"/api/v1/promotions/{promotion_id}"
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             endpoint=endpoint,
             method="DELETE"
         )
@@ -320,7 +320,7 @@ class Ecom(Service):
         """
         endpoint = f"/api/v1/promotions/{promotion_id}/coupons/{coupon_code}"
         return self.fetch(
-            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            auth='bearer',
             endpoint=endpoint,
             method="DELETE"
         )
