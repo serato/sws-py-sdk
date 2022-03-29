@@ -271,11 +271,11 @@ class Ecom(Service):
         self,
         promotion_id,
         product_type_id,
-        discount_percentage,
-        discount_fixed_amount,
-        pre_condition_product_id,
-        braintree_discount_id,
-        subscription_promotion_expires
+        discount_percentage=None,
+        discount_fixed_amount=None,
+        pre_condition_product_id=None,
+        braintree_discount_id=None,
+        subscription_promotion_expires=None
     ):
         """ Create a promotion rule
             promotion_id: int
@@ -323,4 +323,16 @@ class Ecom(Service):
             auth='bearer',
             endpoint=endpoint,
             method="DELETE"
+        )
+    
+    def redeem_voucher(self, voucher_id):
+        """ Redeem a voucher to the authenticated client user
+        """
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint = endpoint + "/vouchers/" + voucher_id
+        
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            method="PUT"
         )
