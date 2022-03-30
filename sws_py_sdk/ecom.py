@@ -325,7 +325,7 @@ class Ecom(Service):
             method="DELETE"
         )
     
-    def create_voucher(self, voucher_type_id):
+    def create_voucher(self, voucher_type_id, batch_id):
         """Create a vouchers for the provided voucher type
         """
         endpoint = '/api/v1/vouchers'
@@ -333,7 +333,8 @@ class Ecom(Service):
             auth='bearer',
             endpoint=endpoint,
             body={
-                "voucher_type_id": voucher_type_id
+                "voucher_type_id": voucher_type_id,
+                "batch_id": batch_id
             },
             method="POST"
         )
