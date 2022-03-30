@@ -300,6 +300,12 @@ def test_delete_promotion_coupon(me_endpoint_sws_client):
     assert response.status_code != 404
     assert response.status_code != 500
 
+def test_create_voucher(me_endpoint_sws_client):
+    voucher_type_id=104
+    response = me_endpoint_sws_client.ecom().create_voucher(voucher_type_id=voucher_type_id)
+    assert response.status_code != 404
+    assert response.status_code != 500
+    
 def test_redeem_voucher(me_endpoint_sws_client):
     voucher_id = "VOUCHER-CODE"
     response = me_endpoint_sws_client.ecom().redeem_voucher(voucher_id=voucher_id)

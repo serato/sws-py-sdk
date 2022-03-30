@@ -325,6 +325,19 @@ class Ecom(Service):
             method="DELETE"
         )
     
+    def create_voucher(self, voucher_type_id):
+        """Create a vouchers for the provided voucher type
+        """
+        endpoint = '/api/v1/vouchers'
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            body={
+                "voucher_type_id": voucher_type_id
+            },
+            method="POST"
+        )
+
     def redeem_voucher(self, voucher_id):
         """ Redeem a voucher to the authenticated client user
         """
