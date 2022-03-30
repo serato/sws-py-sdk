@@ -339,6 +339,20 @@ class Ecom(Service):
             method="POST"
         )
 
+    def assign_voucher(self, voucher_id):
+        """Assign a voucher to a user
+        """
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint = endpoint + "/vouchers"
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            body={
+                "voucher_id": voucher_id
+            },
+            method="POST"
+        )
+
     def redeem_voucher(self, voucher_id):
         """ Redeem a voucher to the authenticated client user
         """
