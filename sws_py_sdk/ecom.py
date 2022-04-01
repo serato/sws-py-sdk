@@ -312,7 +312,7 @@ class Ecom(Service):
             endpoint=endpoint,
             method="DELETE"
         )
-    
+
     def delete_promotion_coupon(self, promotion_id, coupon_code):
         """ Deletes a promotion coupon
 
@@ -324,7 +324,7 @@ class Ecom(Service):
             endpoint=endpoint,
             method="DELETE"
         )
-    
+
     def create_voucher(self, voucher_type_id, batch_id):
         """Create a vouchers for the provided voucher type
         """
@@ -358,7 +358,7 @@ class Ecom(Service):
         """
         endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "/vouchers/" + voucher_id
-        
+
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
