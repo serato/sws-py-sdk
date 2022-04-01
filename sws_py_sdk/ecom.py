@@ -326,6 +326,9 @@ class Ecom(Service):
 
     def create_voucher(self, voucher_type_id, batch_id):
         """Create a vouchers for the provided voucher type
+
+            voucher_type_id: int
+            batch_id: string
         """
         endpoint = '/api/v1/vouchers'
         return self.fetch(
@@ -340,6 +343,8 @@ class Ecom(Service):
 
     def assign_voucher(self, voucher_id):
         """Assign a voucher to a user
+
+            voucher_id: string
         """
         endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "/vouchers"
@@ -354,6 +359,8 @@ class Ecom(Service):
 
     def redeem_voucher(self, voucher_id):
         """ Redeem a voucher to the authenticated client user
+
+            voucher_id: string
         """
         endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
         endpoint = endpoint + "/vouchers/" + voucher_id
