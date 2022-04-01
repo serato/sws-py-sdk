@@ -1,7 +1,6 @@
 """ This file exposes endpoints from the SWS Ecom Service
 """
 
-from contextlib import nullcontext
 from requests.auth import HTTPBasicAuth
 
 from sws_py_sdk.service import Service
