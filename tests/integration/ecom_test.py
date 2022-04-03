@@ -5,6 +5,7 @@
 """
 
 import pytest
+import datetime
 
 # from sws_py_sdk import ecom, sws_client
 from base_test import me_endpoint_sws_client, user_endpoint_sws_client
@@ -224,3 +225,98 @@ def test_send_braintree_webhook(me_endpoint_sws_client):
     )
     assert response.status_code != 500
     assert response.status_code != 404
+
+def test_create_promotion(me_endpoint_sws_client):
+    currentDateTime = datetime.datetime.now()
+    name = "promotion name"
+    description = "promotion description"
+    starts_at = str(currentDateTime)
+    ends_at = str(currentDateTime + datetime.timedelta(days=10))
+    coupon_based = True
+    enabled = True
+
+    response = me_endpoint_sws_client.ecom().create_promotion(
+        name=name,
+        description=description,
+        starts_at=starts_at,
+        ends_at=ends_at,
+        coupon_based=coupon_based,
+        enabled=enabled
+    )
+
+    assert response.status_code != 500
+    assert response.status_code != 404
+
+def test_create_promotion_coupons(me_endpoint_sws_client):
+    promotion_id=7045
+    usage_limit=10
+    usage_limit_per_user=1
+    expires_at=str(datetime.datetime.now() + datetime.timedelta(days=10))
+
+    response = me_endpoint_sws_client.ecom().create_promotion_coupons(
+        promotion_id=promotion_id,
+        usage_limit=usage_limit,
+        usage_limit_per_user=usage_limit_per_user,
+        expires_at=expires_at
+    )
+    
+    assert response.status_code != 500
+    assert response.status_code != 404
+
+def test_create_promotion_rule(me_endpoint_sws_client):
+    promotion_id=7063
+    product_type_id=138
+    discount_percentage=10
+    discount_fixed_amount=20
+    pre_condition_product_id=95
+    braintree_discount_id="some_discount_id"
+    subscription_promotion_expires=3
+
+    response = me_endpoint_sws_client.ecom().create_promotion_rule(
+        promotion_id=promotion_id,
+        product_type_id=product_type_id,
+        discount_percentage=discount_percentage,
+        discount_fixed_amount=discount_fixed_amount,
+        pre_condition_product_id=pre_condition_product_id,
+        braintree_discount_id=braintree_discount_id,
+        subscription_promotion_expires=subscription_promotion_expires
+    )
+    
+    assert response.status_code != 500
+    assert response.status_code != 404
+
+def test_delete_promotion(me_endpoint_sws_client):
+    promotion_id = "7063"
+    response = me_endpoint_sws_client.ecom().delete_promotion(promotion_id=promotion_id)
+
+    assert response.status_code != 404
+    assert response.status_code != 500
+
+def test_delete_promotion_coupon(me_endpoint_sws_client):
+    promotion_id = "7033"
+    coupon_code = "COUPONCODE"
+    response = me_endpoint_sws_client.ecom().delete_promotion_coupon(promotion_id=promotion_id, coupon_code=coupon_code)
+    
+    assert response.status_code != 404
+    assert response.status_code != 500
+
+def test_create_voucher(me_endpoint_sws_client):
+    voucher_type_id=104
+    batch_id="BATCH_ID"
+    response = me_endpoint_sws_client.ecom().create_voucher(voucher_type_id=voucher_type_id, batch_id=batch_id)
+    assert response.status_code != 404
+    assert response.status_code != 500
+
+def test_assign_voucher(me_endpoint_sws_client):
+    voucher_id = "VOUCHER-CODE"
+    response = me_endpoint_sws_client.ecom().assign_voucher(voucher_id=voucher_id)
+    
+    assert response.status_code != 404
+    assert response.status_code != 500
+
+def test_redeem_voucher(me_endpoint_sws_client):
+    voucher_id = "VOUCHER-CODE"
+    response = me_endpoint_sws_client.ecom().redeem_voucher(voucher_id=voucher_id)
+    
+    assert response.status_code != 404
+    assert response.status_code != 500

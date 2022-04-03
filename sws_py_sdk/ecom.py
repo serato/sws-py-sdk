@@ -208,3 +208,165 @@ class Ecom(Service):
             endpoint=endpoint,
             method="POST"
         )
+
+    def create_promotion(self, name, description, coupon_based, enabled, starts_at=None, ends_at=None):
+        """ Create a promotion
+
+            name: string
+            description: string
+            starts_at: string
+                datetime format
+            ends_at: string
+                datetime format
+            coupon_based: boolean
+            endabled: boolean
+        """
+        endpoint = '/api/v1/promotions'
+        return self.fetch(
+            auth='bearer',
+            body={
+                "name": name,
+                "description": description,
+                "starts_at": starts_at,
+                "ends_at": ends_at,
+                "coupon_based": coupon_based,
+                "enabled": enabled
+            },
+            endpoint=endpoint,
+            method="POST"
+        )
+
+    def create_promotion_coupons(
+        self,
+        promotion_id,
+        usage_limit=None,
+        usage_limit_per_user=None,
+        expires_at=None,
+        coupon_code=None
+    ):
+        """ Create a promotion coupon
+
+            promotion_id: int
+            usage_limit: int
+            usage_limit_per_user: int
+            expires_at: string
+                datetime format
+            coupon_code: string
+        """
+        endpoint = f"/api/v1/promotions/{promotion_id}/coupons"
+        return self.fetch(
+            auth='bearer',
+            body={
+                "usage_limit": usage_limit,
+                "usage_limit_per_user": usage_limit_per_user,
+                "expires_at": expires_at,
+                "coupon_code": coupon_code
+            },
+            endpoint=endpoint,
+            method="POST"
+        )
+
+    def create_promotion_rule(
+        self,
+        promotion_id,
+        product_type_id,
+        discount_percentage=None,
+        discount_fixed_amount=None,
+        pre_condition_product_id=None,
+        braintree_discount_id=None,
+        subscription_promotion_expires=None
+    ):
+        """ Create a promotion rule
+            promotion_id: int
+            product_type_id: int
+            discount_percentage: float
+            discount_fixed_amount: float
+            pre_condition_product_id: int
+            braintree_discount_id: string
+            subscription_promotion_expires: int
+        """
+        endpoint = f"/api/v1/promotions/{promotion_id}/rules"
+        return self.fetch(
+            auth='bearer',
+            body={
+                "product_type_id": product_type_id,
+                "discount_percentage": discount_percentage,
+                "discount_fixed_amount": discount_fixed_amount,
+                "pre_condition_product_id": pre_condition_product_id,
+                "braintree_discount_id": braintree_discount_id,
+                "subscription_promotion_expires": subscription_promotion_expires
+            },
+            endpoint=endpoint,
+            method="POST"
+        )
+
+    def delete_promotion(self, promotion_id):
+        """ Deletes a promotion
+
+            promotion_id: int
+        """
+        endpoint = f"/api/v1/promotions/{promotion_id}"
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            method="DELETE"
+        )
+
+    def delete_promotion_coupon(self, promotion_id, coupon_code):
+        """ Deletes a promotion coupon
+
+            promotion_id: int
+        """
+        endpoint = f"/api/v1/promotions/{promotion_id}/coupons/{coupon_code}"
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            method="DELETE"
+        )
+
+    def create_voucher(self, voucher_type_id, batch_id):
+        """Create a vouchers for the provided voucher type
+
+            voucher_type_id: int
+            batch_id: string
+        """
+        endpoint = '/api/v1/vouchers'
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            body={
+                "voucher_type_id": voucher_type_id,
+                "batch_id": batch_id
+            },
+            method="POST"
+        )
+
+    def assign_voucher(self, voucher_id):
+        """Assign a voucher to a user
+
+            voucher_id: string
+        """
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint = endpoint + "/vouchers"
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            body={
+                "voucher_id": voucher_id
+            },
+            method="POST"
+        )
+
+    def redeem_voucher(self, voucher_id):
+        """ Redeem a voucher to the authenticated client user
+
+            voucher_id: string
+        """
+        endpoint = '/api/v1/me' if self.sws.user_id == 0 else '/api/v1/users/' + str(self.sws.user_id)
+        endpoint = endpoint + "/vouchers/" + voucher_id
+
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            method="PUT"
+        )
