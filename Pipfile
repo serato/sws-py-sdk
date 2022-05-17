@@ -10,6 +10,7 @@ requests-mock = "~=1.9.3"
 
 [packages]
 requests = "*"
+setuptools = "~=60.9.0"
 
 [requires]
 python_version = "3.7"
