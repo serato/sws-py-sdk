@@ -5,12 +5,11 @@ verify_ssl = true
 
 [dev-packages]
 pycodestyle = "~=2.7.0"
-pytest = "~=6.2.4"
+pytest = "*"
 requests-mock = "~=1.9.3"
 
 [packages]
 requests = "*"
-setuptools = "~=60.9.0"
 
 [requires]
 python_version = "3.7"
