@@ -124,3 +124,21 @@ def test_post_user_gaclientid(user_endpoint_sws_client):
     
     assert response.status_code != 404
     assert response.status_code != 500
+
+def test_create_device_flow_authorization(user_endpoint_sws_client):
+    response = user_endpoint_sws_client.identity().create_device_flow_authorization(
+        code_challenge='123456789abcdefghijklmnopqrstuvwxyz',
+        code_challenge_methods='s256'
+    )
+
+    assert response.status_code != 404
+    assert response.status_code != 500
+
+def test_exchange_device_code_for_tokens(user_endpoint_sws_client):
+    response = user_endpoint_sws_client.identity().exchange_device_code_for_tokens(
+        device_code='mock_device_code',
+        code_verifier='abcdefghijklmnopqrstuvwxyz'
+    )
+
+    assert response.status_code != 404
+    assert response.status_code != 500
