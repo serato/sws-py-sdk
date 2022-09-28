@@ -270,7 +270,7 @@ class Identity(Service):
             code_verifier: str
                 Corresponding code verifier to the code challenge.
         """
-        endpoint = '/api/v1/tokens/device'
+        endpoint = '/api/v1/tokens/device/code'
         return self.fetch(
             auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
             endpoint=endpoint,
