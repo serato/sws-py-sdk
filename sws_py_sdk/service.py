@@ -109,6 +109,10 @@ class Service(object):
         if self.sws.test_env:
             request.headers.update(self.FirewallHeader.getHeader())
 
+        # If test stack CDN credentials were provided, add the x-serato-cdn-auth header to the request
+        if self.sws.cdn_auth_id and self.sws.cdn_auth_secret:
+            request.headers.update(self.sws.get_cdn_auth_header())
+
         if method == 'PUT' or method == 'PATCH' or method == 'POST':
             if 'Content-Type' in headers and headers['Content-Type'] == 'application/x-www-form-urlencoded':
                 request.data = body
