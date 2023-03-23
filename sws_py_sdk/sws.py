@@ -11,7 +11,7 @@ service_uri_default = {
     'id': 'id.serato.com',
     'license': 'license.serato.com',
     'ecom': 'ecom.serato.com',
-    'cloudlib': 'cloudlib',
+    'cloudlib': 'cloudlib.serato.com',
     # profile: 'profile.serato.com'
 }
 

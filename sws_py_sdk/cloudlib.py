@@ -5,49 +5,72 @@ from sws_py_sdk.service import Service
 
 class Cloudlib(Service):
 
-    def post_file(self, post_file=''):
-        """ Post a file
+    def __init__(self, sws):
+        super().__init__(sws)
+        self.service_uri = sws.service_uris['cloudlib']
+
+    def me_create_file_upload(self, md5_hash, mime_type, size, name=None):
+        """ Post a file via /api/v1/files endpoint
+            user_id : int
+                MD5hash base64 encoding            
+            md5_hash : str
+                MD5hash base64 encoding
+            mime_type : str
+                File mime type
+            size : int
+                Size of the file
+            name : str
+                name of the file
         """
 
-        endpoint = '/api/v1/me/files'
+        endpoint = f'/api/v1/me/files'
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={"post_file": post_file},
+            body={"md5_hash": md5_hash, "mime_type": mime_type, "size": size, "name": name},
             method='POST',
         )
 
-    def post_file_id(self, post_file_id=''):
-        """ Post a file id
+    def user_create_file_upload(self, user_id, md5_hash, mime_type, size, name=None):
+        """ Post a file id via /api/v1/users/{user_id}/files endpoint
+            user_id : int
+                MD5hash base64 encoding            
+            md5_hash : str
+                MD5hash base64 encoding
+            mime_type : str
+                File mime type
+            size : int
+                Size of the file
+            name : str
+                name of the file
         """
         
-        endpoint = '/api/v1/user/files/:file_id'
+        endpoint = f'/api/v1/users/{user_id}/files'
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={"post_file_id": post_file_id},
+            body={"md5_hash": md5_hash, "mime_type": mime_type, "size": size, "name": name},
             method='POST',
         )
 
-    def get_file(self, get_file=''):
-        """ Get a file
+    def me_get_file(self, file_id):
+        """ Get file via /api/v1/users/{user_id}/files/:file_id endpoint
         """
 
-        endpoint = '/api/v1/me/files'
+        endpoint = f'/api/v1/me/files/{file_id}'
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={"get_file": get_file},
             method='GET',
         )
 
-    def get_file_id(self, get_file_id=''):
-        """ Get a file id
+    def user_get_file(self, file_id, user_id):
+        """ Get file id via /api/v1/files/:file_id endpoint
         """
-        endpoint = '/api/v1/user/files/:file_id'
+        endpoint = f'/api/v1/users/{user_id}/files/{file_id}'
         return self.fetch(
             auth='bearer',
             endpoint=endpoint,
-            body={"get_file_id": get_file_id},
             method='GET',
+
         )
