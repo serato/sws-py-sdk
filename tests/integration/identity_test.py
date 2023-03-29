@@ -128,7 +128,7 @@ def test_post_user_gaclientid(user_endpoint_sws_client):
 def test_create_device_flow_authorization(user_endpoint_sws_client):
     response = user_endpoint_sws_client.identity().create_device_flow_authorization(
         code_challenge='123456789abcdefghijklmnopqrstuvwxyz',
-        code_challenge_methods='s256'
+        code_challenge_method='s256'
     )
 
     assert response.status_code != 404
