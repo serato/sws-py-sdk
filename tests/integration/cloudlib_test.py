@@ -16,7 +16,7 @@ def me_create_file_upload(me_endpoint_sws_client):
     assert response.status_code != 500
 
 def test_user_create_file_upload(user_endpoint_sws_client):
-    response = user_endpoint_sws_client.cloudlib().user_create_file_upload(md5_hash='mockhash', mime_type='mockmime', size=123, name=None)
+    response = user_endpoint_sws_client.cloudlib().user_create_file_upload(user_id=123, md5_hash='mockhash', mime_type='mockmime', size=123, name=None)
     assert response.status_code != 404
     assert response.status_code != 500
 

@@ -7,7 +7,7 @@ SERVICE_URI= {
     "id": "http://192.168.4.14:8585",
     "license": "http://192.168.4.14:8686",
     "ecom": "http://192.168.4.14:8787",
-    "cloudlib": "localhost:3000"
+    "cloudlib": "http://localhost:3000"
 }
 
 @pytest.fixture
