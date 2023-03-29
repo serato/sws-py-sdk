@@ -5,13 +5,12 @@
 """
 import base64
 
-from sws_py_sdk import identity, license, ecom, cloudlib
+from sws_py_sdk import identity, license, ecom
 
 service_uri_default = {
     'id': 'id.serato.com',
     'license': 'license.serato.com',
     'ecom': 'ecom.serato.com',
-    'cloudlib': 'cloudlib.serato.com',
     # profile: 'profile.serato.com'
 }
 
@@ -64,15 +63,13 @@ class Sws(object):
         self.service_uris = {
             'id': service_uri['id'] if 'id' in service_uri.keys() else service_uri_default['id'],
             'license': service_uri['license'] if 'license' in service_uri.keys() else service_uri_default['license'],
-            'ecom': service_uri['ecom'] if 'ecom' in service_uri.keys() else service_uri_default['ecom'],
-            'cloudlib': service_uri['cloudlib'] if 'cloudlib' in service_uri.keys() else service_uri_default['cloudlib']
+            'ecom': service_uri['ecom'] if 'ecom' in service_uri.keys() else service_uri_default['ecom']
         }
 
         self.service = {
             'id': identity.Identity(sws=self),
             'license': license.License(sws=self),
-            'ecom': ecom.Ecom(sws=self),
-            'cloudlib': cloudlib.Cloudlib(sws=self)
+            'ecom': ecom.Ecom(sws=self)
             # Define more clients here
         }
         self.invalid_access_token_handler = invalid_access_token_handler
@@ -91,10 +88,6 @@ class Sws(object):
     def ecom(self):
         """ Getter for the ecom service instance """
         return self.service['ecom']
-
-    def cloudlib(self):
-        """ Getter for the cloud library service instance """
-        return self.service['cloudlib']
 
     def get_cdn_auth_header(self):
         """ Returns the x-serato-cdn-auth header, encoding the credentials used to access test stack CDNs
