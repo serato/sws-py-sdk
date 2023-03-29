@@ -3,6 +3,7 @@
 
 from sws_py_sdk.service import Service
 
+
 class Cloudlib(Service):
 
     def __init__(self, sws):
@@ -10,8 +11,8 @@ class Cloudlib(Service):
         self.service_uri = sws.service_uris['cloudlib']
 
     def me_create_file_upload(self, md5_hash, mime_type, size, name=None):
-        """ Create a file upload   
-            md5_hash : str
+        """ Create a file upload
+           md5_hash : str
                 MD5hash base64 encoded
             mime_type : str
                 File mime type
@@ -32,7 +33,7 @@ class Cloudlib(Service):
     def user_create_file_upload(self, user_id, md5_hash, mime_type, size, name=None):
         """ User created file upload
             user_id : int
-                User ID            
+                User ID
             md5_hash : str
                 MD5hash base64 encoded
             mime_type : str
@@ -40,9 +41,9 @@ class Cloudlib(Service):
             size : int
                 Size of the file
             name : str
-                name of the file
+                Name of the file
         """
-        
+
         endpoint = f'/api/v1/users/{user_id}/files'
         return self.fetch(
             auth='bearer',
@@ -52,7 +53,7 @@ class Cloudlib(Service):
         )
 
     def me_get_file(self, file_id):
-        """ Get file details 
+        """ Get file details
             file_id: str
                 File ID
         """
