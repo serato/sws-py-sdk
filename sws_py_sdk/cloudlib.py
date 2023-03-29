@@ -10,11 +10,9 @@ class Cloudlib(Service):
         self.service_uri = sws.service_uris['cloudlib']
 
     def me_create_file_upload(self, md5_hash, mime_type, size, name=None):
-        """ Post a file via /api/v1/files endpoint
-            user_id : int
-                MD5hash base64 encoding            
+        """ Create a file upload   
             md5_hash : str
-                MD5hash base64 encoding
+                MD5hash base64 encoded
             mime_type : str
                 File mime type
             size : int
@@ -32,11 +30,11 @@ class Cloudlib(Service):
         )
 
     def user_create_file_upload(self, user_id, md5_hash, mime_type, size, name=None):
-        """ Post a file id via /api/v1/users/{user_id}/files endpoint
+        """ User created file upload
             user_id : int
-                MD5hash base64 encoding            
+                User ID            
             md5_hash : str
-                MD5hash base64 encoding
+                MD5hash base64 encoded
             mime_type : str
                 File mime type
             size : int
@@ -54,7 +52,9 @@ class Cloudlib(Service):
         )
 
     def me_get_file(self, file_id):
-        """ Get file via /api/v1/users/{user_id}/files/:file_id endpoint
+        """ Get file details 
+            file_id: str
+                File ID
         """
 
         endpoint = f'/api/v1/me/files/{file_id}'
@@ -64,8 +64,12 @@ class Cloudlib(Service):
             method='GET',
         )
 
-    def user_get_file(self, file_id, user_id):
-        """ Get file id via /api/v1/files/:file_id endpoint
+    def user_get_file(self, user_id, file_id):
+        """ Get file details for user
+            user_id: int
+                User ID
+            file_id: str
+                File ID
         """
         endpoint = f'/api/v1/users/{user_id}/files/{file_id}'
         return self.fetch(
