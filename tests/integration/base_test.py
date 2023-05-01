@@ -4,9 +4,9 @@ import pytest
 
 APP_ID = 'myClientAppId'
 SERVICE_URI= {
-    "id": "http://localhost:8585",
-    "license": "http://localhost:8686",
-    "ecom": "http://localhost:8787",
+    "id": "http://localhost:8300",
+    "license": "http://localhost:8301",
+    "ecom": "http://localhost:8302",
     "cloudlib": "http://localhost:8309"
 }
 
