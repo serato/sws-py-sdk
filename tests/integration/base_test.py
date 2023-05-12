@@ -4,10 +4,10 @@ import pytest
 
 APP_ID = 'myClientAppId'
 SERVICE_URI= {
-    "id": "http://192.168.4.14:8585",
-    "license": "http://192.168.4.14:8686",
-    "ecom": "http://192.168.4.14:8787",
-    "cloudlib": "http://localhost:3000"
+    "id": "http://localhost:8300",
+    "license": "http://localhost:8301",
+    "ecom": "http://localhost:8302",
+    "cloudlib": "http://localhost:8309"
 }
 
 @pytest.fixture
