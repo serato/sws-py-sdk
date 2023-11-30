@@ -370,7 +370,7 @@ class Ecom(Service):
             endpoint=endpoint,
             method="PUT"
         )
-    
+
     def create_cart(self, products):
         """ Create a cart with products list
 
