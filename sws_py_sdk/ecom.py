@@ -370,3 +370,25 @@ class Ecom(Service):
             endpoint=endpoint,
             method="PUT"
         )
+    
+    def create_cart(self, products):
+        """ Create a cart with products list
+
+            products: array
+            e.g.:   [
+                        {
+                            "product_type_id": 145,
+                            "quantity": 1
+                        }
+                    ]
+        """
+        endpoint = '/api/v1/carts'
+        return self.fetch(
+            auth='bearer',
+            endpoint=endpoint,
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            body={
+                "products": products
+            },
+            method="POST"
+        )
