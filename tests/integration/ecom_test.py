@@ -320,3 +320,15 @@ def test_redeem_voucher(me_endpoint_sws_client):
     
     assert response.status_code != 404
     assert response.status_code != 500
+
+def test_create_cart(me_endpoint_sws_client):
+    products = [
+        {
+            "product_type_id": 145,
+            "quantity": 1
+        }
+    ]
+    response = me_endpoint_sws_client.ecom().create_cart(products=products)
+
+    assert response.status_code != 404
+    assert response.status_code != 500
