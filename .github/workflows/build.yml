@@ -27,5 +27,5 @@ jobs:
           pipenv install --dev
       - name: Run unit tests and code sniffers
         run: |
-          pycodestyle sws_py_sdk --config=./pycodestyle
+          pipenv run pycodestyle sws_py_sdk --config=./pycodestyle
           pipenv run python -m pytest tests/spec
