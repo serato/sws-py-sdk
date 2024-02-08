@@ -100,8 +100,8 @@ class SwsClient(Sws):
         :param str redirect_uri: Uri to redirect to after the authorization flow completes
         :param str code_challenge:
         :param str code_challenge_method:
-        :return: a uuid4 state and constructed auth_url to begin the code flow authorization
-        :rtype: str, str
+        :return: a tuple containing the uuid4 state and constructed auth_url to begin the code flow authorization
+        :rtype: tuple[str, str]
         """
         state = str(uuid4())
         auth_url_params = {

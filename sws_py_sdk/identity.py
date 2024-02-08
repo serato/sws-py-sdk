@@ -300,7 +300,7 @@ class Identity(Service):
             app_id : str
                 Client application ID
             code_verifier : str
-                The code verifier value generated. Optional param in token exchange endpoint.
+                The code verifier value generated. Not used by older applications.
         """
         endpoint = '/api/v1/tokens/exchange'
         body = {
