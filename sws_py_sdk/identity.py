@@ -285,10 +285,12 @@ class Identity(Service):
             }
         )
 
-    def code_flow_token_exchange(self, grant_type, code, redirect_uri, app_id, code_verifier = ''):
-        """ POST /tokens/exchange Exchanges an authorization code for access and refresh tokens via /tokens/exchange endpoint. 
+    def code_flow_token_exchange(self, grant_type, code, redirect_uri, app_id, code_verifier=''):
+        """ POST /tokens/exchange Exchanges an authorization code for access and refresh tokens
+            via /tokens/exchange endpoint.
+
             Includes additional query parameters required by the code flow authorization process.
-            
+
             grant_type : str
                 Currently will always be 'authorization_code'.
             code : str
@@ -301,7 +303,7 @@ class Identity(Service):
                 The code verifier value generated. Optional param in token exchange endpoint.
         """
         endpoint = '/api/v1/tokens/exchange'
-        body={
+        body = {
             'grant_type': grant_type,
             'app_id': self.sws.app_id,
             'code': code,
