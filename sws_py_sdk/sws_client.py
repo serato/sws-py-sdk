@@ -110,7 +110,7 @@ class SwsClient(Sws):
             'app_id': self.app_id
         }
 
-        if (code_challenge != ''):
+        if code_challenge != '':
             auth_url_params['code_challenge'] = code_challenge
             auth_url_params['code_challenge_method'] = code_challenge_method
         auth_url = self.service_uris['id'] + '/en/authorize?' + urlencode(auth_url_params)

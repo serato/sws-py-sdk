@@ -309,7 +309,7 @@ class Identity(Service):
             'code': code,
             'redirect_uri': redirect_uri
         }
-        if (code_verifier != ''):
+        if code_verifier != '':
             body['code_verifier'] = code_verifier
 
         return self.fetch(
