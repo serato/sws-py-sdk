@@ -1,4 +1,6 @@
 import datetime
+from uuid import uuid4
+from urllib.parse import urlencode
 
 from .sws import Sws
 """ This is the client.
@@ -88,3 +90,28 @@ class SwsClient(Sws):
                 #   Re-execute the 'last request'
                 return service.fetch_request(last_request)
         return response
+
+    def create_authorization_request(self, redirect_uri, code_challenge='', code_challenge_method='s256'):
+        """
+        Creates the data required for a client application to complete the authorization process.
+        Note that code_challenge and code_challenge_method are made optional for testing purposes.
+        Where possible, these should always be passed in.
+
+        :param str redirect_uri: Uri to redirect to after the authorization flow completes
+        :param str code_challenge:
+        :param str code_challenge_method:
+        :return: a tuple containing the uuid4 state and constructed auth_url to begin the code flow authorization
+        :rtype: tuple[str, str]
+        """
+        state = str(uuid4())
+        auth_url_params = {
+            'state': state,
+            'redirect_uri': redirect_uri,
+            'app_id': self.app_id
+        }
+
+        if code_challenge != '':
+            auth_url_params['code_challenge'] = code_challenge
+            auth_url_params['code_challenge_method'] = code_challenge_method
+        auth_url = self.service_uris['id'] + '/en/authorize?' + urlencode(auth_url_params)
+        return state, auth_url

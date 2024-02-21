@@ -284,3 +284,41 @@ class Identity(Service):
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         )
+
+    def code_flow_token_exchange(self, grant_type, code, redirect_uri, app_id, code_verifier=''):
+        """ POST /tokens/exchange Exchanges an authorization code for access and refresh tokens
+            via /tokens/exchange endpoint.
+
+            Includes additional query parameters required by the code flow authorization process.
+
+            grant_type : str
+                Currently will always be 'authorization_code'.
+            code : str
+                The authorization code to exchange for tokens.
+            redirect_uri : str
+                The redirect URI supplied when the authorization request was issued.
+            app_id : str
+                Client application ID
+            code_verifier : str
+                The code verifier value generated. Not used by older applications.
+        """
+        endpoint = '/api/v1/tokens/exchange'
+        body = {
+            'grant_type': grant_type,
+            'app_id': self.sws.app_id,
+            'code': code,
+            'redirect_uri': redirect_uri
+        }
+        if code_verifier != '':
+            body['code_verifier'] = code_verifier
+
+        return self.fetch(
+            auth=HTTPBasicAuth(username=self.sws.app_id, password=self.sws.secret),
+            endpoint=endpoint,
+            method='POST',
+            body=body,
+            headers={
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        )
